@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ITO5032_Assignment.Models
 {
-    public class NotificationModels
+    public class NotificationssModels
     {
         public String message { get; set; }
         public int id { get; set; }

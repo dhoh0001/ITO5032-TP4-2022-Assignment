@@ -29,5 +29,7 @@ namespace ITO5032_Assignment.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Notification> Notifications { get; set; }
     }
 }
