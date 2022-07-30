@@ -39,11 +39,11 @@ textarea {
     border-radius: 2px;
 }
 
-    .notification:hover {
+    .badge:hover {
         background: red;
     }
 
-    .notification .badge {
+    .badge {
         position: absolute;
         top: 5px;
         right: 5px;
