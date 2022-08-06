@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.Notification>
+﻿@model IEnumerable<ITO5032_Assignment.Models.Rating>
 
 @{
     ViewBag.Title = "Index";
@@ -13,10 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.message)
+            @Html.DisplayNameFor(model => model.score)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.notification_datetime)
+            @Html.DisplayNameFor(model => model.comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.service_provider_id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User_id)
@@ -27,10 +30,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.message)
+            @Html.DisplayFor(modelItem => item.score)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.notification_datetime)
+            @Html.DisplayFor(modelItem => item.comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.service_provider_id)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User_id)

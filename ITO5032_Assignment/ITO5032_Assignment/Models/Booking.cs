@@ -12,13 +12,15 @@ namespace ITO5032_Assignment.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification
+    public partial class Booking
     {
         public int id { get; set; }
-        public string message { get; set; }
-        public string notification_datetime { get; set; }
+        public string start_datetime { get; set; }
+        public string end_datetime { get; set; }
         public int User_id { get; set; }
+        public int Bookable_id { get; set; }
     
         public virtual AppUser User { get; set; }
+        public virtual Bookable Bookable { get; set; }
     }
 }

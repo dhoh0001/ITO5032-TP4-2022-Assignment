@@ -13,10 +13,10 @@ namespace ITO5032_Assignment.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Model1Container : DbContext
+    public partial class ModelsContainer : DbContext
     {
-        public Model1Container()
-            : base("name=Model1Container")
+        public ModelsContainer()
+            : base("name=ModelsContainer")
         {
         }
     
@@ -25,6 +25,12 @@ namespace ITO5032_Assignment.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<Bookable> Bookables { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
     }
 }

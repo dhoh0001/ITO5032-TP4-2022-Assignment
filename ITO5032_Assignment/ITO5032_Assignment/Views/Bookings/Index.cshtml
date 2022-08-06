@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.Notification>
+﻿@model IEnumerable<ITO5032_Assignment.Models.Booking>
 
 @{
     ViewBag.Title = "Index";
@@ -13,13 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.message)
+            @Html.DisplayNameFor(model => model.start_datetime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.notification_datetime)
+            @Html.DisplayNameFor(model => model.end_datetime)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bookable_id)
         </th>
         <th></th>
     </tr>
@@ -27,13 +30,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.message)
+            @Html.DisplayFor(modelItem => item.start_datetime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.notification_datetime)
+            @Html.DisplayFor(modelItem => item.end_datetime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.User_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bookable_id)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

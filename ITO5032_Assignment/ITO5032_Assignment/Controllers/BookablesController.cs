@@ -10,107 +10,107 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
-    public class NotificationsController : Controller
+    public class BookablesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Notifications
+        // GET: Bookables
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            return View(db.Bookables.ToList());
         }
 
-        // GET: Notifications/Details/5
+        // GET: Bookables/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Bookable bookable = db.Bookables.Find(id);
+            if (bookable == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(bookable);
         }
 
-        // GET: Notifications/Create
+        // GET: Bookables/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Notifications/Create
+        // POST: Bookables/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Create([Bind(Include = "id,name,description,available_day,available_start_time,available_end_time,max_occupancy,booking_type,Location_id")] Bookable bookable)
         {
             if (ModelState.IsValid)
             {
-                db.Notifications.Add(notification);
+                db.Bookables.Add(bookable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(notification);
+            return View(bookable);
         }
 
-        // GET: Notifications/Edit/5
+        // GET: Bookables/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Bookable bookable = db.Bookables.Find(id);
+            if (bookable == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(bookable);
         }
 
-        // POST: Notifications/Edit/5
+        // POST: Bookables/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Edit([Bind(Include = "id,name,description,available_day,available_start_time,available_end_time,max_occupancy,booking_type,Location_id")] Bookable bookable)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notification).State = EntityState.Modified;
+                db.Entry(bookable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(notification);
+            return View(bookable);
         }
 
-        // GET: Notifications/Delete/5
+        // GET: Bookables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Bookable bookable = db.Bookables.Find(id);
+            if (bookable == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(bookable);
         }
 
-        // POST: Notifications/Delete/5
+        // POST: Bookables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Notification notification = db.Notifications.Find(id);
-            db.Notifications.Remove(notification);
+            Bookable bookable = db.Bookables.Find(id);
+            db.Bookables.Remove(bookable);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

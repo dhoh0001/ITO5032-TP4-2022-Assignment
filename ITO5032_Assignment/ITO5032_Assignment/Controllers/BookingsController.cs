@@ -10,107 +10,107 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
-    public class NotificationsController : Controller
+    public class BookingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Notifications
+        // GET: Bookings
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            return View(db.Bookings.ToList());
         }
 
-        // GET: Notifications/Details/5
+        // GET: Bookings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Booking booking = db.Bookings.Find(id);
+            if (booking == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(booking);
         }
 
-        // GET: Notifications/Create
+        // GET: Bookings/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Notifications/Create
+        // POST: Bookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Create([Bind(Include = "id,start_datetime,end_datetime,User_id,Bookable_id")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                db.Notifications.Add(notification);
+                db.Bookings.Add(booking);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(notification);
+            return View(booking);
         }
 
-        // GET: Notifications/Edit/5
+        // GET: Bookings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Booking booking = db.Bookings.Find(id);
+            if (booking == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(booking);
         }
 
-        // POST: Notifications/Edit/5
+        // POST: Bookings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Edit([Bind(Include = "id,start_datetime,end_datetime,User_id,Bookable_id")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notification).State = EntityState.Modified;
+                db.Entry(booking).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(notification);
+            return View(booking);
         }
 
-        // GET: Notifications/Delete/5
+        // GET: Bookings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            Booking booking = db.Bookings.Find(id);
+            if (booking == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(booking);
         }
 
-        // POST: Notifications/Delete/5
+        // POST: Bookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Notification notification = db.Notifications.Find(id);
-            db.Notifications.Remove(notification);
+            Booking booking = db.Bookings.Find(id);
+            db.Bookings.Remove(booking);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

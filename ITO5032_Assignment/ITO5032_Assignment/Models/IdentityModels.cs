@@ -31,5 +31,15 @@ namespace ITO5032_Assignment.Models
         }
 
         public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Notification> Notifications { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.File> Files { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Bookable> Bookables { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Booking> Bookings { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Rating> Ratings { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.AppUser> AppUsers { get; set; }
     }
 }

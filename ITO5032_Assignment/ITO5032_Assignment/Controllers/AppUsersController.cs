@@ -10,107 +10,107 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
-    public class NotificationsController : Controller
+    public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Notifications
+        // GET: AppUsers
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            return View(db.AppUsers.ToList());
         }
 
-        // GET: Notifications/Details/5
+        // GET: AppUsers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            AppUser appUser = db.AppUsers.Find(id);
+            if (appUser == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(appUser);
         }
 
-        // GET: Notifications/Create
+        // GET: AppUsers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Notifications/Create
+        // POST: AppUsers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Create([Bind(Include = "id,role_id,first_name,last_name,date_of_birth,username,password,salt,address1,address2,email,external_id")] AppUser appUser)
         {
             if (ModelState.IsValid)
             {
-                db.Notifications.Add(notification);
+                db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(notification);
+            return View(appUser);
         }
 
-        // GET: Notifications/Edit/5
+        // GET: AppUsers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            AppUser appUser = db.AppUsers.Find(id);
+            if (appUser == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(appUser);
         }
 
-        // POST: Notifications/Edit/5
+        // POST: AppUsers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Edit([Bind(Include = "id,role_id,first_name,last_name,date_of_birth,username,password,salt,address1,address2,email,external_id")] AppUser appUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notification).State = EntityState.Modified;
+                db.Entry(appUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(notification);
+            return View(appUser);
         }
 
-        // GET: Notifications/Delete/5
+        // GET: AppUsers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            AppUser appUser = db.AppUsers.Find(id);
+            if (appUser == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(appUser);
         }
 
-        // POST: Notifications/Delete/5
+        // POST: AppUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Notification notification = db.Notifications.Find(id);
-            db.Notifications.Remove(notification);
+            AppUser appUser = db.AppUsers.Find(id);
+            db.AppUsers.Remove(appUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

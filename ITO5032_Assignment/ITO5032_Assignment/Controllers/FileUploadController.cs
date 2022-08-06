@@ -36,7 +36,7 @@ namespace ITO5032_Assignment.Controllers
                 return RedirectToAction("Index");
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ViewBag.Message = "File upload failed!!";
                 return RedirectToAction("Index");

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.Notification>
+﻿@model IEnumerable<ITO5032_Assignment.Models.File>
 
 @{
     ViewBag.Title = "Index";
@@ -13,13 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.message)
+            @Html.DisplayNameFor(model => model.file_name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.notification_datetime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User_id)
+            @Html.DisplayNameFor(model => model.file_location)
         </th>
         <th></th>
     </tr>
@@ -27,13 +24,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.message)
+            @Html.DisplayFor(modelItem => item.file_name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.notification_datetime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User_id)
+            @Html.DisplayFor(modelItem => item.file_location)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

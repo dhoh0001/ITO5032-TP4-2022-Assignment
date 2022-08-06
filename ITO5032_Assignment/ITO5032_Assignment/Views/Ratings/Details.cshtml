@@ -1,4 +1,4 @@
-﻿@model ITO5032_Assignment.Models.Notification
+﻿@model ITO5032_Assignment.Models.Rating
 
 @{
     ViewBag.Title = "Details";
@@ -8,23 +8,31 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Notification</h4>
+    <h4>Rating</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.message)
+            @Html.DisplayNameFor(model => model.score)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.message)
+            @Html.DisplayFor(model => model.score)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.notification_datetime)
+            @Html.DisplayNameFor(model => model.comment)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.notification_datetime)
+            @Html.DisplayFor(model => model.comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.service_provider_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service_provider_id)
         </dd>
 
         <dt>

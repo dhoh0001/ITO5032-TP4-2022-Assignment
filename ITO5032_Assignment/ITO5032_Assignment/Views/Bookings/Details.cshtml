@@ -1,4 +1,4 @@
-﻿@model ITO5032_Assignment.Models.Notification
+﻿@model ITO5032_Assignment.Models.Booking
 
 @{
     ViewBag.Title = "Details";
@@ -8,23 +8,23 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Notification</h4>
+    <h4>Booking</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.message)
+            @Html.DisplayNameFor(model => model.start_datetime)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.message)
+            @Html.DisplayFor(model => model.start_datetime)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.notification_datetime)
+            @Html.DisplayNameFor(model => model.end_datetime)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.notification_datetime)
+            @Html.DisplayFor(model => model.end_datetime)
         </dd>
 
         <dt>
@@ -33,6 +33,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.User_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bookable_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bookable_id)
         </dd>
 
     </dl>

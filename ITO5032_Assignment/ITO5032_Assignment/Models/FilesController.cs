@@ -6,111 +6,110 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ITO5032_Assignment.Models;
 
-namespace ITO5032_Assignment.Controllers
+namespace ITO5032_Assignment.Models
 {
-    public class NotificationsController : Controller
+    public class FilesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Notifications
+        // GET: Files
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            return View(db.Files.ToList());
         }
 
-        // GET: Notifications/Details/5
+        // GET: Files/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            File file = db.Files.Find(id);
+            if (file == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(file);
         }
 
-        // GET: Notifications/Create
+        // GET: Files/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Notifications/Create
+        // POST: Files/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Create([Bind(Include = "id,file_name,file_location")] File file)
         {
             if (ModelState.IsValid)
             {
-                db.Notifications.Add(notification);
+                db.Files.Add(file);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(notification);
+            return View(file);
         }
 
-        // GET: Notifications/Edit/5
+        // GET: Files/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            File file = db.Files.Find(id);
+            if (file == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(file);
         }
 
-        // POST: Notifications/Edit/5
+        // POST: Files/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,message,notification_datetime,User_id")] Notification notification)
+        public ActionResult Edit([Bind(Include = "id,file_name,file_location")] File file)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(notification).State = EntityState.Modified;
+                db.Entry(file).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(notification);
+            return View(file);
         }
 
-        // GET: Notifications/Delete/5
+        // GET: Files/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
-            if (notification == null)
+            File file = db.Files.Find(id);
+            if (file == null)
             {
                 return HttpNotFound();
             }
-            return View(notification);
+            return View(file);
         }
 
-        // POST: Notifications/Delete/5
+        // POST: Files/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Notification notification = db.Notifications.Find(id);
-            db.Notifications.Remove(notification);
+            File file = db.Files.Find(id);
+            db.Files.Remove(file);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="AppUsers" EntityType="Models.Store.AppUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Files" EntityType="Models.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Notifications" EntityType="Models.Store.Notifications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ratings" EntityType="Models.Store.Ratings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bookings" EntityType="Models.Store.Bookings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bookables" EntityType="Models.Store.Bookables" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Locations" EntityType="Models.Store.Locations" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserNotification" Association="Models.Store.UserNotification">
+      <End Role="User" EntitySet="AppUsers" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="UserRating" Association="Models.Store.UserRating">
+      <End Role="User" EntitySet="AppUsers" />
+      <End Role="Rating" EntitySet="Ratings" />
+    </AssociationSet>
+    <AssociationSet Name="UserBooking" Association="Models.Store.UserBooking">
+      <End Role="User" EntitySet="AppUsers" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="BookingBookable" Association="Models.Store.BookingBookable">
+      <End Role="Booking" EntitySet="Bookings" />
+      <End Role="Bookable" EntitySet="Bookables" />
+    </AssociationSet>
+    <AssociationSet Name="BookableLocation" Association="Models.Store.BookableLocation">
+      <End Role="Bookable" EntitySet="Bookables" />
+      <End Role="Location" EntitySet="Locations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AppUsers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role_id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="last_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date_of_birth" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="salt" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="external_id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="file_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="file_location" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="notification_datetime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ratings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="score" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="service_provider_id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="start_datetime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="end_datetime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+    <Property Name="Bookable_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bookables">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="available_day" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="available_start_time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="available_end_time" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="max_occupancy" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="booking_type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="room" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="UserNotification">
+    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
+    <End Role="Notification" Type="Models.Store.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserRating">
+    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
+    <End Role="Rating" Type="Models.Store.Ratings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserBooking">
+    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
+    <End Role="Booking" Type="Models.Store.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingBookable">
+    <End Role="Booking" Type="Models.Store.Bookings" Multiplicity="*" />
+    <End Role="Bookable" Type="Models.Store.Bookables" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Bookable">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="Bookable_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookableLocation">
+    <End Role="Bookable" Type="Models.Store.Bookables" Multiplicity="*" />
+    <End Role="Location" Type="Models.Store.Locations" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Bookable">
+        <PropertyRef Name="Location_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelsContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUsers" EntityType="Models.AppUser" />
+          <EntitySet Name="Files" EntityType="Models.File" />
+          <EntitySet Name="Notifications" EntityType="Models.Notification" />
+          <AssociationSet Name="UserNotification" Association="Models.UserNotification">
+            <End Role="User" EntitySet="AppUsers" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <EntitySet Name="Ratings" EntityType="Models.Rating" />
+          <AssociationSet Name="UserRating" Association="Models.UserRating">
+            <End Role="User" EntitySet="AppUsers" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <EntitySet Name="Bookings" EntityType="Models.Booking" />
+          <AssociationSet Name="UserBooking" Association="Models.UserBooking">
+            <End Role="User" EntitySet="AppUsers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <EntitySet Name="Bookables" EntityType="Models.Bookable" />
+          <AssociationSet Name="BookingBookable" Association="Models.BookingBookable">
+            <End EntitySet="Bookings" Role="Booking" />
+            <End EntitySet="Bookables" Role="Bookable" />
+          </AssociationSet>
+          <EntitySet Name="Locations" EntityType="Models.Location" />
+          <AssociationSet Name="BookableLocation" Association="Models.BookableLocation">
+            <End Role="Bookable" EntitySet="Bookables" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id" Type="String" Nullable="false" />
+          <Property Name="first_name" Type="String" Nullable="false" />
+          <Property Name="last_name" Type="String" Nullable="false" />
+          <Property Name="date_of_birth" Type="String" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" />
+          <Property Name="salt" Type="String" Nullable="false" />
+          <Property Name="address1" Type="String" Nullable="false" />
+          <Property Name="address2" Type="String" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" />
+          <Property Name="external_id" Type="String" Nullable="false" />
+          <NavigationProperty Name="Notifications" Relationship="Models.UserNotification" FromRole="User" ToRole="Notification" />
+          <NavigationProperty Name="Ratings" Relationship="Models.UserRating" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="Bookings" Relationship="Models.UserBooking" FromRole="User" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="file_name" Type="String" Nullable="false" />
+          <Property Name="file_location" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" Nullable="false" />
+          <Property Name="notification_datetime" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Models.UserNotification" FromRole="Notification" ToRole="User" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserNotification">
+          <End Type="Models.AppUser" Role="User" Multiplicity="1" />
+          <End Type="Models.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="score" Type="String" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" />
+          <Property Name="service_provider_id" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Models.UserRating" FromRole="Rating" ToRole="User" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserRating">
+          <End Type="Models.AppUser" Role="User" Multiplicity="1" />
+          <End Type="Models.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="start_datetime" Type="String" Nullable="false" />
+          <Property Name="end_datetime" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Models.UserBooking" FromRole="Booking" ToRole="User" />
+          <Property Name="User_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookable" Relationship="Models.BookingBookable" FromRole="Booking" ToRole="Bookable" />
+          <Property Name="Bookable_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserBooking">
+          <End Type="Models.AppUser" Role="User" Multiplicity="1" />
+          <End Type="Models.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="User_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bookable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="name" Nullable="false" Type="String" />
+          <Property Name="description" Nullable="false" Type="String" />
+          <Property Name="available_day" Nullable="false" Type="String" />
+          <Property Name="available_start_time" Nullable="false" Type="String" />
+          <Property Name="available_end_time" Nullable="false" Type="String" />
+          <Property Name="max_occupancy" Nullable="false" Type="String" />
+          <Property Name="booking_type" Nullable="false" Type="String" />
+          <NavigationProperty Name="Bookings" Relationship="Models.BookingBookable" FromRole="Bookable" ToRole="Booking" />
+          <NavigationProperty Name="Location" Relationship="Models.BookableLocation" FromRole="Bookable" ToRole="Location" />
+          <Property Name="Location_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="BookingBookable">
+          <End Type="Models.Booking" Multiplicity="*" Role="Booking" />
+          <End Type="Models.Bookable" Multiplicity="1" Role="Bookable" />
+          <ReferentialConstraint>
+            <Principal Role="Bookable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Bookable_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address1" Type="String" Nullable="false" />
+          <Property Name="address2" Type="String" Nullable="false" />
+          <Property Name="room" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bookables" Relationship="Models.BookableLocation" FromRole="Location" ToRole="Bookable" />
+        </EntityType>
+        <Association Name="BookableLocation">
+          <End Type="Models.Bookable" Role="Bookable" Multiplicity="*" />
+          <End Type="Models.Location" Role="Location" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookable">
+              <PropertyRef Name="Location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="ModelsContainer">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.AppUser)">
+        <MappingFragment StoreEntitySet="AppUsers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="salt" ColumnName="salt" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="external_id" ColumnName="external_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.File)">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="file_name" ColumnName="file_name" />
+          <ScalarProperty Name="file_location" ColumnName="file_location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.Notification)">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="notification_datetime" ColumnName="notification_datetime" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.Rating)">
+        <MappingFragment StoreEntitySet="Ratings">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="score" ColumnName="score" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="service_provider_id" ColumnName="service_provider_id" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.Booking)">
+        <MappingFragment StoreEntitySet="Bookings">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="start_datetime" ColumnName="start_datetime" />
+          <ScalarProperty Name="end_datetime" ColumnName="end_datetime" />
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="Bookable_id" ColumnName="Bookable_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bookables">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.Bookable)">
+        <MappingFragment StoreEntitySet="Bookables">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="available_day" ColumnName="available_day" />
+          <ScalarProperty Name="available_start_time" ColumnName="available_start_time" />
+          <ScalarProperty Name="available_end_time" ColumnName="available_end_time" />
+          <ScalarProperty Name="max_occupancy" ColumnName="max_occupancy" />
+          <ScalarProperty Name="booking_type" ColumnName="booking_type" />
+          <ScalarProperty Name="Location_id" ColumnName="Location_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="IsTypeOf(Models.Location)">
+        <MappingFragment StoreEntitySet="Locations">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="room" ColumnName="room" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
