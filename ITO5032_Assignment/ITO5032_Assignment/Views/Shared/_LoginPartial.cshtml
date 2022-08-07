@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-@using ITO5032_Assignment.Models
 
 @{
     AjaxOptions ajaxOptions = new AjaxOptions
@@ -14,16 +13,16 @@
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("User Management", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" });
         </li>
-
         <li>
-            <div id="badge" class="badge">
-                @Html.Partial("_BadgePartial")
-            </div>
-            @Ajax.ActionLink("Notifications", "test", "Notifications", ajaxOptions);
+            @Html.ActionLink("Schedule Management", "Index", "Bookings", routeValues: null, htmlAttributes: new { id = "scheduleManagement" });
         </li>
+        <li>
+            @Html.ActionLink("Notifications", "Index", "Notifications", routeValues: null, htmlAttributes: new { id = "scheduleManagement" });
 
+            <div id="badge" />
+        </li>
         <li>
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
@@ -33,10 +32,16 @@
 
         </li>
     </ul>
+    @Ajax.ActionLink(" ","getNotificationCount", "Notifications", null, ajaxOptions, new { id = "badgeButton" });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            document.getElementById("badgeButton").click();
+        });
+    </script>
 }
 else
 {
-<ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Register", "Register", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-</ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    </ul>
 }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ITO5032_Assignment.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -44,6 +45,7 @@ namespace ITO5032_Assignment.Controllers
         // POST: AppUsers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,role_id,first_name,last_name,date_of_birth,username,password,salt,address1,address2,email,external_id")] AppUser appUser)

@@ -20,12 +20,12 @@
                 </button>
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="topBarRight" class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="bodyContainer" class="container body-content">
         @RenderBody()
         <hr />
         <footer>

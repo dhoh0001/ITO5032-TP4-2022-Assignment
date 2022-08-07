@@ -123,5 +123,16 @@ namespace ITO5032_Assignment.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult getNotificationCount()
+        {
+            if(db.Notifications.ToList().Count > 0) { 
+                ViewData["numNotifications"] = db.Notifications.ToList().Count;
+                return PartialView("_BadgePartial");
+            } 
+            else
+            {
+                return new EmptyResult();
+            }
+        }
     }
 }

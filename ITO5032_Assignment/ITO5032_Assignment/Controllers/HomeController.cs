@@ -59,20 +59,6 @@ namespace ITO5032_Assignment.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -132,7 +118,7 @@ namespace ITO5032_Assignment.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterAccountModel model)
         {
             if (ModelState.IsValid)
             {
@@ -140,6 +126,7 @@ namespace ITO5032_Assignment.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //result = UserManager.AddToRole(user.Id, "User");
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -148,6 +135,20 @@ namespace ITO5032_Assignment.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    AppUser appUser = new AppUser();
+                    appUser.role_id = "1";
+                    appUser.email = model.Email;
+                    appUser.password = model.Password;
+                    appUser.first_name = model.first_name;
+                    appUser.last_name = model.last_name;
+                    appUser.date_of_birth = model.date_of_birth;
+                    appUser.address1 = model.address1;
+                    appUser.address2 = model.address2;
+                    appUser.username = model.Email;
+                    appUser.salt = "test";
+                    appUser.external_id = user.Id;
+                    AppUsersController appUserController = new AppUsersController();
+                    ActionResult actionResult = appUserController.Create(appUser);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

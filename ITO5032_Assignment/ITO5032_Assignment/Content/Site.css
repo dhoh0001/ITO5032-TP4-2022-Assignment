@@ -52,3 +52,7 @@ textarea {
         background: red;
         color: white;
     }
+
+.padding {
+    margin-top: 50px
+}
