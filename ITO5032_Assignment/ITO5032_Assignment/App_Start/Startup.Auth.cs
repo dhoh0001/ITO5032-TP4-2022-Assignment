@@ -58,11 +58,11 @@ namespace ITO5032_Assignment
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "102705389260-mn26lasco1cs6109u9jsp9uarv9eiknt.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }

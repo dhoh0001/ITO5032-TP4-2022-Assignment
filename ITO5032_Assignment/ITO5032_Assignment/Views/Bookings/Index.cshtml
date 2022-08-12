@@ -1,14 +1,20 @@
 ﻿@model IEnumerable<ITO5032_Assignment.Models.Booking>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bookings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Current Bookings</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Make Booking", "Create")
+</p>
+<p>
+    @Html.ActionLink("Service Provider Schedule", "Create")
 </p>
 <table class="table">
     <tr>

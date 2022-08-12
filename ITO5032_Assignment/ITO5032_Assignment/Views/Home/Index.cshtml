@@ -8,7 +8,7 @@
 {
     <div class="row">
         <h3>@ViewBag.Message</h3>
-        <div class="col-md-8">
+        <div >
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
@@ -16,27 +16,27 @@
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-7">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-7">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="col-md-offset-5 col-md-7">
                             <input type="submit" value="Log in" class="btn btn-default" />
                         </div>
                     </div>
-                    <p>
-                        @Html.ActionLink("Login using an external service", "ExternalLoginsList")
-                    </p>
+                    <div>
+                        @Html.ActionLink("Login using an external service", "ExternalLoginsList", null, new { @class = "col-md-offset-5 col-md-7"})
+                    </div>
                 }
             </section>
         </div>
@@ -44,5 +44,22 @@
 }
 else
 {
+    <div><h1>Hi User, welcome to Dogs and Tots!</h1></div>
+    <div><h2>Upcoming Bookings</h2></div>
+    <div><h2>Locations</h2></div>
+    <div id='map'></div>
+    <script>
+        // The value for 'accessToken' begins with 'pk...'
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGhvaDAwMDEiLCJhIjoiY2w2bHphbmFiMDJzcDNlcXFwbW83cDJsYiJ9.A5eUUVQZ9lh7dG0znZaryw';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            // Replace YOUR_STYLE_URL with your style URL.
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-87.661557, 41.893748],
+            zoom: 10.7
+        });
 
+        // Code from the next step will go here.
+
+    </script>
 }

@@ -13,6 +13,7 @@ using ITO5032_Assignment.Models;
 namespace ITO5032_Assignment.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

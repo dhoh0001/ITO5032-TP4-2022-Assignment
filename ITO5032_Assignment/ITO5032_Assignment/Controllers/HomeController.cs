@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -52,7 +53,9 @@ namespace ITO5032_Assignment.Controllers
         }
         public ActionResult ExternalLoginsList()
         {
-            return View();
+            ExternalLoginListViewModel extView = new ExternalLoginListViewModel();
+            extView.ReturnUrl = "";
+            return View(extView);
         }
         public ActionResult Index()
         {

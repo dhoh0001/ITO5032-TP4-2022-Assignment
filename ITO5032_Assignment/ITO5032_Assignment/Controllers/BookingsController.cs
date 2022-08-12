@@ -10,6 +10,7 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class BookingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -122,6 +123,10 @@ namespace ITO5032_Assignment.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult UserBooking()
+        {
+            return View();
         }
     }
 }

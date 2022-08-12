@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class EmailingController : Controller
     {
         // GET: Emailing
@@ -22,10 +23,12 @@ namespace ITO5032_Assignment.Controllers
 
             if (ModelState.IsValid)
             {
+                ViewBag.Message = "sucesss";
                 return View("Index", mailObject);
             }
             else
             {
+                ViewBag.Message = "failure";
                 return View();
             }
         }
@@ -40,6 +43,16 @@ namespace ITO5032_Assignment.Controllers
             var plainTextContent = "and easy to do anywhere, even with C# 1" + mailObject.Body;
             var htmlContent = "<strong>and easy to do anywhere, even with C# 2</strong>" + mailObject.Body;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            byte[] bytes = null;
+            try
+            {
+                bytes = System.IO.File.ReadAllBytes("C:/Users/danie/source/repos/ITO5032_Assignment/ITO5032_Assignment/ITO5032_Assignment/Images/dogsandtots.png");
+            } catch (Exception e){
+                var ex = e;
+            }
+            var file = Convert.ToBase64String(bytes);
+            msg.AddAttachment("logo.png", file);
+
             var response = await client.SendEmailAsync(msg);
         }
     }

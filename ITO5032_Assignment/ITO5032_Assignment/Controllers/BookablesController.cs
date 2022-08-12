@@ -10,6 +10,7 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class BookablesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -122,6 +123,15 @@ namespace ITO5032_Assignment.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult RoomBookable()
+        {
+            return View();
+        }
+        public ActionResult ServiceProviderBookable()
+        {
+            return View();
         }
     }
 }

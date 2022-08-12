@@ -11,6 +11,7 @@ using ITO5032_Assignment.Models;
 namespace ITO5032_Assignment.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class AppUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

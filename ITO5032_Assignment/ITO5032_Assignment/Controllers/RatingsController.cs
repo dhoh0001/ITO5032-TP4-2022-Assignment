@@ -10,6 +10,7 @@ using ITO5032_Assignment.Models;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [RequireHttps]
     public class RatingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

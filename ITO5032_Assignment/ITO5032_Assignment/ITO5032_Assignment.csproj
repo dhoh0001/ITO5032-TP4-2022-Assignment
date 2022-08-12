@@ -293,6 +293,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\dogsandtots.png" />
+    <Content Include="Images\floorplan.png" />
     <Content Include="Models\Models.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Models.Context.cs</LastGenOutput>
@@ -397,6 +399,9 @@
     <Content Include="Views\AppUsers\Details.cshtml" />
     <Content Include="Views\AppUsers\Edit.cshtml" />
     <Content Include="Views\AppUsers\Index.cshtml" />
+    <Content Include="Views\Bookings\UserBooking.cshtml" />
+    <Content Include="Views\Bookables\ServiceProviderBookable.cshtml" />
+    <Content Include="Views\Bookables\RoomBookable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
