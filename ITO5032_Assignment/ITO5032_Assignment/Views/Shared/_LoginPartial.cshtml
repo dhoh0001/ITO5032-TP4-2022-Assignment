@@ -23,9 +23,7 @@
         @Html.ActionLink("Email Users", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
     </li>
         -->
-        <li>
-            @Html.ActionLink("Admin actions", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
-        </li>
+        @{Html.RenderAction("RenderAdminButton", "Home");}
         <li>
             @Html.ActionLink("User Management", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
         </li>
@@ -48,7 +46,11 @@
     @Ajax.ActionLink(" ","getNotificationCount", "Notifications", null, ajaxOptions, new { id = "badgeButton" })
     <script type="text/javascript">
         $(document).ready(function () {
-            document.getElementById("badgeButton").click();
+            function clickBadge() {
+                document.getElementById("badgeButton").click();
+                setTimeout(clickBadge, 30000)
+            }
+            clickBadge();
         })
     </script>
 }

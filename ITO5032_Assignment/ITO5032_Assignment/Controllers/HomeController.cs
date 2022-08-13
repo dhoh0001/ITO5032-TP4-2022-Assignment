@@ -1,4 +1,5 @@
-﻿using ITO5032_Assignment.Models;
+﻿using ITO5032_Assignment.Enums;
+using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -16,6 +17,7 @@ namespace ITO5032_Assignment.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -174,6 +176,22 @@ namespace ITO5032_Assignment.Controllers
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
+            }
+        }
+
+        public ActionResult RenderAdminButton()
+        {
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+
+            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            {
+                ViewData["isAdmin"] = "ADMIN";
+                return PartialView("_AdminButton");
+            }
+            else
+            {
+                return new EmptyResult();
             }
         }
     }

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -18,7 +20,41 @@ namespace ITO5032_Assignment.Controllers
         // GET: Notifications
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+
+            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            {
+                List<Notification> list = db.Notifications.ToList();
+                List<AppUser> users = db.AppUsers.ToList();
+                foreach (Notification not in list)
+                {
+                    foreach (AppUser u in users)
+                    {
+                        if (u.id == not.User_id)
+                            not.User = u;
+                    }
+                    not.User = users.Find(item => item.id == not.User_id);
+                }
+                ViewData["isAdmin"] = "ADMIN";
+                return View(list);
+            }
+            else
+            {
+                int i = user[0].id;
+                List<Notification> list = db.Notifications.Where(n => n.User_id == i).ToList();
+                List<AppUser> users = db.AppUsers.ToList();
+                foreach (Notification not in list)
+                {
+                    foreach (AppUser u in users)
+                    {
+                        if (u.id == not.User_id)
+                            not.User = u;
+                    }
+                    not.User = users.Find(item => item.id == not.User_id);
+                }
+                return View(list);
+            }
         }
 
         // GET: Notifications/Details/5
@@ -126,8 +162,13 @@ namespace ITO5032_Assignment.Controllers
         }
         public ActionResult getNotificationCount()
         {
-            if(db.Notifications.ToList().Count > 0) { 
-                ViewData["numNotifications"] = db.Notifications.ToList().Count;
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+
+            if (db.Notifications.ToList().Count > 0 && Int32.Parse(user[0].role_id) != Roles.ADMIN.Id) {
+                int i = user[0].id;
+                List<Notification> list = db.Notifications.Where(n => n.User_id == i).ToList();
+                ViewData["numNotifications"] = list.Count;
                 return PartialView("_BadgePartial");
             } 
             else

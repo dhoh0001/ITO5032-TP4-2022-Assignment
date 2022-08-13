@@ -32,10 +32,10 @@
                     <div class="form-group">
                         <div class="col-md-offset-5 col-md-7">
                             <input type="submit" value="Log in" class="btn btn-default" />
+                            <a href="/Home/ResetPW" class="btn btn-default">Reset Password</a>
+                            <a href="/Home/ExternalLoginsList" class="btn btn-default">External Login</a>
+
                         </div>
-                    </div>
-                    <div>
-                        @Html.ActionLink("Login using an external service", "ExternalLoginsList", null, new { @class = "col-md-offset-5 col-md-7"})
                     </div>
                 }
             </section>
@@ -44,8 +44,7 @@
 }
 else
 {
-    <div><h1>Hi User, welcome to Dogs and Tots!</h1></div>
-    <div><h2>Upcoming Bookings</h2></div>
+    <div><h1>Welcome to Dogs and Tots!</h1></div>
     <div><h2>Locations</h2></div>
     <div id='map'></div>
     <script>

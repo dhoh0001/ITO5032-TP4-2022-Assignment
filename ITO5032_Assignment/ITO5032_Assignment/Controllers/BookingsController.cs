@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -18,7 +20,43 @@ namespace ITO5032_Assignment.Controllers
         // GET: Bookings
         public ActionResult Index()
         {
-            return View(db.Bookings.ToList());
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+
+            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            {
+                List<Booking> list = db.Bookings.ToList();
+                List<AppUser> users = db.AppUsers.ToList();
+                foreach (Booking b in list)
+                {
+                    foreach (AppUser u in users)
+                    {
+                        if (u.id == b.User_id)
+                            b.User = u;
+                    }
+                    b.User = users.Find(item => item.id == b.User_id);
+                    b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
+                }
+                ViewData["isAdmin"] = "ADMIN";
+                return View(list);
+            }
+            else
+            {
+                int i = user[0].id;
+                List<Booking> list = db.Bookings.Where(n => n.User_id == i).ToList();
+                List<AppUser> users = db.AppUsers.ToList();
+                foreach (Booking b in list)
+                {
+                    foreach (AppUser u in users)
+                    {
+                        if (u.id == b.User_id)
+                            b.User = u;
+                    }
+                    b.User = users.Find(item => item.id == b.User_id);
+                    b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
+                }
+                return View(list);
+            }
         }
 
         // GET: Bookings/Details/5
@@ -33,6 +71,8 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            booking.User = db.AppUsers.Where(item => item.id == booking.User_id).ToList()[0];
+            booking.Bookable = db.Bookables.Where(bkbl => bkbl.id == booking.Bookable_id).ToList()[0];
             return View(booking);
         }
 
@@ -102,6 +142,8 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            booking.User = db.AppUsers.Where(item => item.id == booking.User_id).ToList()[0];
+            booking.Bookable = db.Bookables.Where(bkbl => bkbl.id == booking.Bookable_id).ToList()[0];
             return View(booking);
         }
 

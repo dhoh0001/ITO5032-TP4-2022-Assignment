@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
 
@@ -19,7 +20,18 @@ namespace ITO5032_Assignment.Controllers
         // GET: AppUsers
         public ActionResult Index()
         {
-            return View(db.AppUsers.ToList());
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+
+            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            {
+                ViewData["isAdmin"] = "ADMIN";
+                return View(db.AppUsers.ToList());
+            }
+            else
+            {
+                return View(user);
+            }
         }
 
         // GET: AppUsers/Details/5
@@ -40,6 +52,7 @@ namespace ITO5032_Assignment.Controllers
         // GET: AppUsers/Create
         public ActionResult Create()
         {
+
             return View();
         }
 

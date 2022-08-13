@@ -8,13 +8,10 @@
 <h2>Current Bookings</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<p>
-    @Html.ActionLink("Make Booking", "Create")
-</p>
-<p>
-    @Html.ActionLink("Service Provider Schedule", "Create")
+    <a href="/Bookings/Create" class="btn btn-default">Create New</a>
+    <a href="/Bookings/UserBooking" class="btn btn-default">Make Booking</a>
+    <a href="/Bookables/ServiceProviderBookable" class="btn btn-default">Service provider bookables</a>
+    <a href="/Bookables/RoomBookable" class="btn btn-default">Room Bookables</a>
 </p>
 <table class="table">
     <tr>
@@ -42,10 +39,11 @@
             @Html.DisplayFor(modelItem => item.end_datetime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User_id)
+            @item.User.first_name
+            @item.User.last_name
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Bookable_id)
+            @item.Bookable.name
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
