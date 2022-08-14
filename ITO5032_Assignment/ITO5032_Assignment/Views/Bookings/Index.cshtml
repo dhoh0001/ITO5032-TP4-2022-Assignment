@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.Booking>
+﻿@model PagedList.IPagedList<ITO5032_Assignment.Models.Booking>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Bookings";
@@ -13,44 +15,57 @@
     <a href="/Bookables/ServiceProviderBookable" class="btn btn-default">Service provider bookables</a>
     <a href="/Bookables/RoomBookable" class="btn btn-default">Room Bookables</a>
 </p>
+@using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.start_datetime)
+            @Html.ActionLink("Start Date time", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.end_datetime)
+            End Date time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User_id)
+            @Html.ActionLink("User", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bookable_id)
+            Bookable
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.start_datetime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.end_datetime)
-        </td>
-        <td>
-            @item.User.first_name
-            @item.User.last_name
-        </td>
-        <td>
-            @item.Bookable.name
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.start_datetime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.end_datetime)
+            </td>
+            <td>
+                @item.User.first_name
+                @item.User.last_name
+            </td>
+            <td>
+                @item.Bookable.name
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

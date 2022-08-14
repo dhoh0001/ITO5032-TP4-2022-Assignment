@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -18,45 +19,74 @@ namespace ITO5032_Assignment.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bookings
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.StartTimeSortParm = String.IsNullOrEmpty(sortOrder) ? "start_time_desc" : "";
+            ViewBag.UserSortParm = sortOrder == "user" ? "user_desc" : "user";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+            var list = from usr in db.Bookings select usr;
 
-            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                List<Booking> list = db.Bookings.ToList();
-                List<AppUser> users = db.AppUsers.ToList();
-                foreach (Booking b in list)
+                list = list.Where(s => s.Bookable.name.Contains(searchString)
+                                       || s.Bookable.description.Contains(searchString)
+                                       || s.User.first_name.Contains(searchString)
+                                       || s.User.last_name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "start_time_desc":
+                    list = list.OrderByDescending(u => u.start_datetime);
+                    break;
+                case "user":
+                    list = list.OrderBy(u => u.User.first_name + u.User.last_name);
+                    break;
+                case "user_desc":
+                    list = list.OrderByDescending(u => u.User.first_name + u.User.last_name);
+                    break;
+                default:
+                    list = list.OrderBy(u => u.start_datetime);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            List<AppUser> users = db.AppUsers.ToList();
+            foreach (Booking b in list)
+            {
+                foreach (AppUser u in users)
                 {
-                    foreach (AppUser u in users)
-                    {
-                        if (u.id == b.User_id)
-                            b.User = u;
-                    }
-                    b.User = users.Find(item => item.id == b.User_id);
-                    b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
+                    if (u.id == b.User_id)
+                        b.User = u;
                 }
+                b.User = users.Find(item => item.id == b.User_id);
+                b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
+            }
+            if (user[0].role_id == Roles.ADMIN.Id)
+            {
                 ViewData["isAdmin"] = "ADMIN";
-                return View(list);
             }
             else
             {
                 int i = user[0].id;
-                List<Booking> list = db.Bookings.Where(n => n.User_id == i).ToList();
-                List<AppUser> users = db.AppUsers.ToList();
-                foreach (Booking b in list)
-                {
-                    foreach (AppUser u in users)
-                    {
-                        if (u.id == b.User_id)
-                            b.User = u;
-                    }
-                    b.User = users.Find(item => item.id == b.User_id);
-                    b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
-                }
-                return View(list);
+                list = list.Where(n => n.User_id == i);
             }
+            return View(list.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: Bookings/Details/5

@@ -39,10 +39,10 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="role_id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="role_id" Type="int" Nullable="false" />
     <Property Name="first_name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="last_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="date_of_birth" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="date_of_birth" Type="datetime" Nullable="false" />
     <Property Name="username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="salt" Type="nvarchar(max)" Nullable="false" />
@@ -65,7 +65,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="message" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="notification_datetime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="notification_datetime" Type="datetime" Nullable="false" />
     <Property Name="User_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Ratings">
@@ -73,9 +73,9 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="score" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="score" Type="int" Nullable="false" />
     <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="service_provider_id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="service_provider_id" Type="int" Nullable="false" />
     <Property Name="User_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Bookings">
@@ -83,8 +83,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="start_datetime" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="end_datetime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="start_datetime" Type="datetime" Nullable="false" />
+    <Property Name="end_datetime" Type="datetime" Nullable="false" />
     <Property Name="User_id" Type="int" Nullable="false" />
     <Property Name="Bookable_id" Type="int" Nullable="false" />
   </EntityType>
@@ -209,10 +209,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="role_id" Type="String" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
           <Property Name="first_name" Type="String" Nullable="false" />
           <Property Name="last_name" Type="String" Nullable="false" />
-          <Property Name="date_of_birth" Type="String" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" />
           <Property Name="username" Type="String" Nullable="false" />
           <Property Name="password" Type="String" Nullable="false" />
           <Property Name="salt" Type="String" Nullable="false" />
@@ -238,7 +238,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="message" Type="String" Nullable="false" />
-          <Property Name="notification_datetime" Type="String" Nullable="false" />
+          <Property Name="notification_datetime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Models.UserNotification" FromRole="Notification" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
         </EntityType>
@@ -259,9 +259,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="score" Type="String" Nullable="false" />
+          <Property Name="score" Type="Int32" Nullable="false" />
           <Property Name="comment" Type="String" Nullable="false" />
-          <Property Name="service_provider_id" Type="String" Nullable="false" />
+          <Property Name="service_provider_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Models.UserRating" FromRole="Rating" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
         </EntityType>
@@ -282,8 +282,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="start_datetime" Type="String" Nullable="false" />
-          <Property Name="end_datetime" Type="String" Nullable="false" />
+          <Property Name="start_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="end_datetime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Models.UserBooking" FromRole="Booking" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookable" Relationship="Models.BookingBookable" FromRole="Booking" ToRole="Bookable" />

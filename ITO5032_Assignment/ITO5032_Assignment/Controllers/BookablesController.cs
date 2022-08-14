@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ITO5032_Assignment.Models;
+using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -16,9 +17,54 @@ namespace ITO5032_Assignment.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bookables
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Bookables.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.StartTimeSortParm = sortOrder == "start_time" ? "start_time_desc" : "start_time";
+            ViewBag.LocationSortParm = sortOrder == "location_asc" ? "location_desc" : "location_asc";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            var list = from bk in db.Bookables select bk;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.name.Contains(searchString)
+                                       || s.description.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    list = list.OrderByDescending(u => u.name);
+                    break;
+                case "start_time":
+                    list = list.OrderBy(u => u.available_start_time);
+                    break;
+                case "start_time_desc":
+                    list = list.OrderByDescending(u => u.available_start_time);
+                    break;
+                case "location_asc":
+                    list = list.OrderBy(u => u.Location);
+                    break;
+                case "location_desc":
+                    list = list.OrderByDescending(u => u.Location);
+                    break;
+                default:
+                    list = list.OrderBy(u => u.name);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Bookables/Details/5

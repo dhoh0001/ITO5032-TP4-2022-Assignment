@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.AppUser>
+﻿@model PagedList.IPagedList<ITO5032_Assignment.Models.AppUser>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
@@ -12,31 +14,38 @@
         <a href="/AppUsers/Create" class="btn btn-default">Create new user</a>
     </p>
 }
+@using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.role_id)
+            @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.first_name)
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.last_name)
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date_of_birth)
+            Date of Birth
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.username)
+            Username
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.password)
+            Password
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.address1)
+           Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+            Email
         </th>
         <th></th>
     </tr>
@@ -45,7 +54,7 @@
     {
         <tr>
             <td>
-                @ITO5032_Assignment.Enums.Roles.getRoleById(Int32.Parse(item.role_id)).Name
+                @ITO5032_Assignment.Enums.Roles.getRoleById(item.role_id).Name
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.first_name)
@@ -71,13 +80,18 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) | 
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
                 @if (@ViewData["isAdmin"] != null)
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
                 }
             </td>
         </tr>
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

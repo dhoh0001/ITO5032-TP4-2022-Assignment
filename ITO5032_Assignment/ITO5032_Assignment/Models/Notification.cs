@@ -16,7 +16,7 @@ namespace ITO5032_Assignment.Models
     {
         public int id { get; set; }
         public string message { get; set; }
-        public string notification_datetime { get; set; }
+        public System.DateTime notification_datetime { get; set; }
         public int User_id { get; set; }
     
         public virtual AppUser User { get; set; }

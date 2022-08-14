@@ -141,12 +141,12 @@ namespace ITO5032_Assignment.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     AppUser appUser = new AppUser();
-                    appUser.role_id = "1";
+                    appUser.role_id = 1;
                     appUser.email = model.Email;
                     appUser.password = model.Password;
                     appUser.first_name = model.first_name;
                     appUser.last_name = model.last_name;
-                    appUser.date_of_birth = model.date_of_birth;
+                    appUser.date_of_birth = DateTime.Parse(model.date_of_birth);
                     appUser.address1 = model.address1;
                     appUser.address2 = model.address2;
                     appUser.username = model.Email;
@@ -184,7 +184,7 @@ namespace ITO5032_Assignment.Controllers
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
 
-            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            if (user[0].role_id == Roles.ADMIN.Id)
             {
                 ViewData["isAdmin"] = "ADMIN";
                 return PartialView("_AdminButton");

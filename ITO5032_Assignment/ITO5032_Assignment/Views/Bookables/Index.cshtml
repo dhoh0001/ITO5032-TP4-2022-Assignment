@@ -1,5 +1,6 @@
-﻿@model IEnumerable<ITO5032_Assignment.Models.Bookable>
-
+﻿@model PagedList.IPagedList<ITO5032_Assignment.Models.Bookable>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,31 +12,38 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.available_day)
+            Available Days
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.available_start_time)
+            @Html.ActionLink("Available Start Time", "Index", new { sortOrder = ViewBag.StartTimeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.available_end_time)
+            Available End Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.max_occupancy)
+            Max Occupancy
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.booking_type)
+            Booking Type
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Location_id)
+            @Html.ActionLink("Location", "Index", new { sortOrder = ViewBag.LocationSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -76,3 +84,9 @@
     }
 
 </table>
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

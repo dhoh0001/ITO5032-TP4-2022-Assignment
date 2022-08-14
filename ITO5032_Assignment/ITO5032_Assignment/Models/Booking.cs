@@ -15,8 +15,8 @@ namespace ITO5032_Assignment.Models
     public partial class Booking
     {
         public int id { get; set; }
-        public string start_datetime { get; set; }
-        public string end_datetime { get; set; }
+        public System.DateTime start_datetime { get; set; }
+        public System.DateTime end_datetime { get; set; }
         public int User_id { get; set; }
         public int Bookable_id { get; set; }
     

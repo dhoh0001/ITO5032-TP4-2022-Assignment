@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -18,43 +19,72 @@ namespace ITO5032_Assignment.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Notifications
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateTimeSortParm = String.IsNullOrEmpty(sortOrder) ? "date_time_desc" : "";
+            ViewBag.UserSortParm = sortOrder == "user" ? "user_desc" : "user";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+            var list = from usr in db.Notifications select usr;
 
-            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            if (!String.IsNullOrEmpty(searchString))
             {
-                List<Notification> list = db.Notifications.ToList();
-                List<AppUser> users = db.AppUsers.ToList();
-                foreach (Notification not in list)
-                {
-                    foreach (AppUser u in users)
-                    {
-                        if (u.id == not.User_id)
-                            not.User = u;
-                    }
-                    not.User = users.Find(item => item.id == not.User_id);
-                }
+                list = list.Where(s => s.User.first_name.Contains(searchString)
+                                       || s.User.last_name.Contains(searchString)
+                                       || s.message.Contains(searchString));
+            }
+            if (user[0].role_id == Roles.ADMIN.Id)
+            {
                 ViewData["isAdmin"] = "ADMIN";
-                return View(list);
             }
             else
             {
                 int i = user[0].id;
-                List<Notification> list = db.Notifications.Where(n => n.User_id == i).ToList();
-                List<AppUser> users = db.AppUsers.ToList();
-                foreach (Notification not in list)
-                {
-                    foreach (AppUser u in users)
-                    {
-                        if (u.id == not.User_id)
-                            not.User = u;
-                    }
-                    not.User = users.Find(item => item.id == not.User_id);
-                }
-                return View(list);
+                list = list.Where(n => n.User_id == i);
             }
+            switch (sortOrder)
+            {
+                case "date_time_desc":
+                    list = list.OrderByDescending(u => u.notification_datetime);
+                    break;
+                case "user":
+                    list = list.OrderBy(u => u.User_id);
+                    break;
+                case "user_desc":
+                    list = list.OrderByDescending(u => u.User_id);
+                    break;
+                default:
+                    list = list.OrderBy(u => u.notification_datetime);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            
+            List<AppUser> users = db.AppUsers.ToList();
+            foreach (Notification not in list)
+            {
+                foreach (AppUser u in users)
+                {
+                    if (u.id == not.User_id)
+                        not.User = u;
+                }
+                not.User = users.Find(item => item.id == not.User_id);
+            }
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Notifications/Details/5
@@ -165,7 +195,7 @@ namespace ITO5032_Assignment.Controllers
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
 
-            if (db.Notifications.ToList().Count > 0 && Int32.Parse(user[0].role_id) != Roles.ADMIN.Id) {
+            if (db.Notifications.ToList().Count > 0 && user[0].role_id != Roles.ADMIN.Id) {
                 int i = user[0].id;
                 List<Notification> list = db.Notifications.Where(n => n.User_id == i).ToList();
                 ViewData["numNotifications"] = list.Count;

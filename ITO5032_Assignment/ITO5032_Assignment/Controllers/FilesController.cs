@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ITO5032_Assignment.Models;
+using PagedList;
+
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -16,9 +18,41 @@ namespace ITO5032_Assignment.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Files
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Files.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.FileNameSortParm = String.IsNullOrEmpty(sortOrder) ? "file_name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var list = from usr in db.Files select usr;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.file_name.Contains(searchString)
+                                       || s.file_name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "file_name_desc":
+                    list = list.OrderByDescending(u => u.file_name);
+                    break;
+                default:
+                    list = list.OrderBy(u => u.file_name);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Files/Details/5

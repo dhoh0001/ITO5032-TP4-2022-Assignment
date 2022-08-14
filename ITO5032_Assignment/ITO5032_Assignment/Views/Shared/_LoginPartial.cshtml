@@ -12,18 +12,7 @@
 @if (Request.IsAuthenticated)
 {
     <ul class="nav navbar-nav navbar-right">
-        <!--
-    <li>
-        @Html.ActionLink("Add Location", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
-    </li>
-    <li>
-        @Html.ActionLink("File Upload", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
-    </li>
-    <li>
-        @Html.ActionLink("Email Users", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
-    </li>
-        -->
-        @{Html.RenderAction("RenderAdminButton", "Home");}
+            @{Html.RenderAction("RenderAdminButton", "Home");}
         <li>
             @Html.ActionLink("User Management", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
         </li>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/06/2022 20:26:07
+-- Date Created: 08/13/2022 19:23:00
 -- Generated from EDMX file: C:\Users\danie\source\repos\ITO5032_Assignment\ITO5032_Assignment\ITO5032_Assignment\Models\Models.edmx
 -- --------------------------------------------------
 
@@ -37,8 +37,8 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Users];
+IF OBJECT_ID(N'[dbo].[AppUsers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AppUsers];
 GO
 IF OBJECT_ID(N'[dbo].[Files]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Files];
@@ -66,10 +66,10 @@ GO
 -- Creating table 'AppUsers'
 CREATE TABLE [dbo].[AppUsers] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [role_id] nvarchar(max)  NOT NULL,
+    [role_id] int  NOT NULL,
     [first_name] nvarchar(max)  NOT NULL,
     [last_name] nvarchar(max)  NOT NULL,
-    [date_of_birth] nvarchar(max)  NOT NULL,
+    [date_of_birth] datetime  NOT NULL,
     [username] nvarchar(max)  NOT NULL,
     [password] nvarchar(max)  NOT NULL,
     [salt] nvarchar(max)  NOT NULL,
@@ -92,7 +92,7 @@ GO
 CREATE TABLE [dbo].[Notifications] (
     [id] int IDENTITY(1,1) NOT NULL,
     [message] nvarchar(max)  NOT NULL,
-    [notification_datetime] nvarchar(max)  NOT NULL,
+    [notification_datetime] datetime  NOT NULL,
     [User_id] int  NOT NULL
 );
 GO
@@ -100,9 +100,9 @@ GO
 -- Creating table 'Ratings'
 CREATE TABLE [dbo].[Ratings] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [score] nvarchar(max)  NOT NULL,
+    [score] int  NOT NULL,
     [comment] nvarchar(max)  NOT NULL,
-    [service_provider_id] nvarchar(max)  NOT NULL,
+    [service_provider_id] int  NOT NULL,
     [User_id] int  NOT NULL
 );
 GO
@@ -110,8 +110,8 @@ GO
 -- Creating table 'Bookings'
 CREATE TABLE [dbo].[Bookings] (
     [id] int IDENTITY(1,1) NOT NULL,
-    [start_datetime] nvarchar(max)  NOT NULL,
-    [end_datetime] nvarchar(max)  NOT NULL,
+    [start_datetime] datetime  NOT NULL,
+    [end_datetime] datetime  NOT NULL,
     [User_id] int  NOT NULL,
     [Bookable_id] int  NOT NULL
 );

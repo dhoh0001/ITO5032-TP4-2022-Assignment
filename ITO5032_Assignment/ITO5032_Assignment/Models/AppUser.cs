@@ -9,9 +9,9 @@
 
 namespace ITO5032_Assignment.Models
 {
+    using System;
     using System.Collections.Generic;
-
-
+    
     public partial class AppUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +23,10 @@ namespace ITO5032_Assignment.Models
         }
     
         public int id { get; set; }
-        public string role_id { get; set; }
+        public int role_id { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public string date_of_birth { get; set; }
+        public System.DateTime date_of_birth { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string salt { get; set; }

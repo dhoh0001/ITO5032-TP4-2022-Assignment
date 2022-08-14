@@ -15,9 +15,9 @@ namespace ITO5032_Assignment.Models
     public partial class Rating
     {
         public int id { get; set; }
-        public string score { get; set; }
+        public int score { get; set; }
         public string comment { get; set; }
-        public string service_provider_id { get; set; }
+        public int service_provider_id { get; set; }
         public int User_id { get; set; }
     
         public virtual AppUser User { get; set; }

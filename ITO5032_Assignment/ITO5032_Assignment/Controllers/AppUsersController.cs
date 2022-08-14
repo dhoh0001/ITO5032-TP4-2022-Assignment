@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -18,15 +19,61 @@ namespace ITO5032_Assignment.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: AppUsers
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "last_name_desc" : "";
+            ViewBag.FirstNameSortParm = sortOrder == "first_name" ? "first_name_desc" : "first_name";
+            ViewBag.RoleSortParm = sortOrder == "role" ? "role_desc" : "role";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+            var list = from usr in db.AppUsers select usr;
 
-            if (Int32.Parse(user[0].role_id) == Roles.ADMIN.Id)
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.last_name.Contains(searchString)
+                                       || s.first_name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "last_name_desc":
+                    list = list.OrderByDescending(u => u.last_name);
+                    break;
+                case "first_name":
+                    list = list.OrderBy(u => u.first_name);
+                    break;
+                case "first_name_desc":
+                    list = list.OrderByDescending(u => u.first_name);
+                    break;
+                case "role":
+                    list = list.OrderBy(u => u.role_id);
+                    break;
+                case "role_desc":
+                    list = list.OrderByDescending(u => u.role_id);
+                    break;
+                default:
+                    list = list.OrderBy(u => u.last_name);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            if (user[0].role_id == Roles.ADMIN.Id)
             {
                 ViewData["isAdmin"] = "ADMIN";
-                return View(db.AppUsers.ToList());
+                return View(list.ToPagedList(pageNumber, pageSize));
             }
             else
             {
