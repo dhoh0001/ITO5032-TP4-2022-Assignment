@@ -41,5 +41,7 @@ namespace ITO5032_Assignment.Models
         public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Rating> Ratings { get; set; }
 
         public System.Data.Entity.DbSet<ITO5032_Assignment.Models.AppUser> AppUsers { get; set; }
+
+        public System.Data.Entity.DbSet<ITO5032_Assignment.Models.Location> Locations { get; set; }
     }
 }

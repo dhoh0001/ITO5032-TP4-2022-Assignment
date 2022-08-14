@@ -4,11 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ITO5032_Assignment.Models;
+using File = ITO5032_Assignment.Models.File;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
+    [RequireHttps]
     public class FileUploadController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: FileUpload
         public ActionResult Index()
         {
@@ -31,8 +37,17 @@ namespace ITO5032_Assignment.Controllers
                     string _FileName = Path.GetFileName(file.FileName);
                     string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
                     file.SaveAs(_path);
+                    File newFile = new File();
+                    newFile.file_name = _FileName;
+                    newFile.file_location = _path;
+                    db.Files.Add(newFile);
+                    db.SaveChanges();
+                    ViewBag.Message = "File Uploaded Successfully!!";
                 }
-                ViewBag.Message = "File Uploaded Successfully!!";
+                else
+                {
+                    ViewBag.Message = "File upload failed!!";
+                }
                 return RedirectToAction("Index");
 
             }

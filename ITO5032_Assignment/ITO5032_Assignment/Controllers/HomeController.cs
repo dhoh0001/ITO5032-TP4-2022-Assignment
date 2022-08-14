@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class HomeController : Controller
     {
@@ -61,7 +62,22 @@ namespace ITO5032_Assignment.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            var sorted = db.Bookings
+                            .Where(b => b.start_datetime > DateTime.Now)
+                            .OrderByDescending(b => b.start_datetime)
+                            .ToList();
+            List<Booking> bookings = new List<Booking>();
+            if(sorted.Count > 2)
+                bookings.Add(sorted[2]);
+            if(sorted.Count > 1)
+                bookings.Add(sorted[1]);
+            if (sorted.Count > 0)
+                bookings.Add(sorted[0]);
+
+            LoginViewModel model = new LoginViewModel();
+            model.bookings = bookings;
+
+            return View(model);
         }
 
         //

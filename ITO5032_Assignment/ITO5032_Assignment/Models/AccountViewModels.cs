@@ -60,6 +60,8 @@ namespace ITO5032_Assignment.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public List<Booking> bookings { get; set; }
     }
 
     public class RegisterViewModel

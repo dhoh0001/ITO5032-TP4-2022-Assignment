@@ -12,7 +12,8 @@
 @if (@ViewData["isAdmin"] != null)
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a href="/Notifications/Create" class="btn btn-default">Create New</a>
+        <a href="/Notifications/AckAllNotifications" class="btn btn-default">Acknowledge all notifications</a>
     </p>
 }
 @using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))

@@ -13,6 +13,7 @@ using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class AppUsersController : Controller
     {
@@ -67,7 +68,7 @@ namespace ITO5032_Assignment.Controllers
                     list = list.OrderBy(u => u.last_name);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             if (user[0].role_id == Roles.ADMIN.Id)
@@ -92,6 +93,10 @@ namespace ITO5032_Assignment.Controllers
             if (appUser == null)
             {
                 return HttpNotFound();
+            }
+            if (appUser.role_id == Roles.SERVICE_USER.Id)
+            {
+                ViewData["isServiceUser"] = "SERVICEUSER";
             }
             return View(appUser);
         }

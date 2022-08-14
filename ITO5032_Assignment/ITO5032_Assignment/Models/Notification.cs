@@ -11,12 +11,20 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Notification
     {
+        [Required]
         public int id { get; set; }
+        [Required]
+        [Display(Name = "Message")]
         public string message { get; set; }
+        [Required]
+        [Display(Name = "Notification Date Time")]
         public System.DateTime notification_datetime { get; set; }
+        [Required]
+        [Display(Name = "User")]
         public int User_id { get; set; }
     
         public virtual AppUser User { get; set; }

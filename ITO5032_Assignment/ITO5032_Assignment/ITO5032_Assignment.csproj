@@ -235,6 +235,7 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
@@ -249,6 +250,26 @@
     <Compile Include="Migrations\202208130941063_test.cs" />
     <Compile Include="Migrations\202208130941063_test.designer.cs">
       <DependentUpon>202208130941063_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208140856125_test1.cs" />
+    <Compile Include="Migrations\202208140856125_test1.designer.cs">
+      <DependentUpon>202208140856125_test1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208140950093_test2.cs" />
+    <Compile Include="Migrations\202208140950093_test2.designer.cs">
+      <DependentUpon>202208140950093_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208140955501_migration3.cs" />
+    <Compile Include="Migrations\202208140955501_migration3.designer.cs">
+      <DependentUpon>202208140955501_migration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208141010485_migration31.cs" />
+    <Compile Include="Migrations\202208141010485_migration31.designer.cs">
+      <DependentUpon>202208141010485_migration31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208141012497_migration32.cs" />
+    <Compile Include="Migrations\202208141012497_migration32.designer.cs">
+      <DependentUpon>202208141012497_migration32.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -464,6 +485,11 @@
     <Content Include="Views\Bookables\RoomBookable.cshtml" />
     <Content Include="Views\AppUsers\testUserPage.cshtml" />
     <Content Include="Views\Shared\_AdminButton.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202208061029500_InitialCreate.resx">
@@ -471,6 +497,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208130941063_test.resx">
       <DependentUpon>202208130941063_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208140856125_test1.resx">
+      <DependentUpon>202208140856125_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208140950093_test2.resx">
+      <DependentUpon>202208140950093_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208140955501_migration3.resx">
+      <DependentUpon>202208140955501_migration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208141010485_migration31.resx">
+      <DependentUpon>202208141010485_migration31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208141012497_migration32.resx">
+      <DependentUpon>202208141012497_migration32.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

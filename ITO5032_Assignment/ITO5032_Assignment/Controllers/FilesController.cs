@@ -12,6 +12,7 @@ using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class FilesController : Controller
     {
@@ -49,7 +50,7 @@ namespace ITO5032_Assignment.Controllers
                     list = list.OrderBy(u => u.file_name);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             return View(list.ToPagedList(pageNumber, pageSize));

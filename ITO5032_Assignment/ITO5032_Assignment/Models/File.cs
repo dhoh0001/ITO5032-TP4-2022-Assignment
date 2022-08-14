@@ -11,11 +11,17 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class File
     {
+        [Required]
         public int id { get; set; }
+        [Required]
+        [Display(Name = "File Name")]
         public string file_name { get; set; }
+        [Required]
+        [Display(Name = "File Location")]
         public string file_location { get; set; }
     }
 }

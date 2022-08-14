@@ -11,7 +11,8 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +20,17 @@ namespace ITO5032_Assignment.Models
         {
             this.Bookables = new HashSet<Bookable>();
         }
-    
+
+        [Required]
         public int id { get; set; }
+        [Required]
+        [Display(Name = "Address")]
         public string address1 { get; set; }
+        [Required]
+        [Display(Name = "Address")]
         public string address2 { get; set; }
+        [Required]
+        [Display(Name = " ")]
         public string room { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

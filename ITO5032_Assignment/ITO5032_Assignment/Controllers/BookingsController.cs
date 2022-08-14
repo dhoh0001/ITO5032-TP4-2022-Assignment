@@ -13,6 +13,7 @@ using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class BookingsController : Controller
     {
@@ -62,7 +63,7 @@ namespace ITO5032_Assignment.Controllers
                     list = list.OrderBy(u => u.start_datetime);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             List<AppUser> users = db.AppUsers.ToList();

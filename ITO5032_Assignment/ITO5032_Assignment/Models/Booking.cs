@@ -11,13 +11,23 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Booking
     {
+        [Required]
         public int id { get; set; }
+        [Required]
+        [Display(Name = "Start Date Time")]
         public System.DateTime start_datetime { get; set; }
+        [Required]
+        [Display(Name = "End Date Time")]
         public System.DateTime end_datetime { get; set; }
+        [Required]
+        [Display(Name = "User")]
         public int User_id { get; set; }
+        [Required]
+        [Display(Name = "Bookable")]
         public int Bookable_id { get; set; }
     
         public virtual AppUser User { get; set; }

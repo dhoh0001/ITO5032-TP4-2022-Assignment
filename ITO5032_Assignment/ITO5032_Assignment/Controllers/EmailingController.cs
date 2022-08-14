@@ -4,9 +4,11 @@ using System.Web.Mvc;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class EmailingController : Controller
     {
@@ -40,9 +42,12 @@ namespace ITO5032_Assignment.Controllers
             var from = new EmailAddress(mailObject.From, "Example User");
             var subject = mailObject.Subject;
             var to = new EmailAddress(mailObject.To, "Example User");
+            List<EmailAddress> tos = new List<EmailAddress>();
+            tos.Add(to);
+            tos.Add(from);
             var plainTextContent = "and easy to do anywhere, even with C# 1" + mailObject.Body;
             var htmlContent = "<strong>and easy to do anywhere, even with C# 2</strong>" + mailObject.Body;
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, tos, subject, plainTextContent, htmlContent);
             byte[] bytes = null;
             try
             {

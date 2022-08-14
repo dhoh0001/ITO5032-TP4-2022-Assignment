@@ -25,7 +25,7 @@ namespace ITO5032_Assignment
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/Home/Login"),
                 ExpireTimeSpan = TimeSpan.FromSeconds(60*60),
                 Provider = new CookieAuthenticationProvider
                 {

@@ -81,6 +81,13 @@
             <dd>
                 @Html.DisplayFor(model => model.email)
             </dd>
+            <dt>
+                @Html.ActionLink(Html.DisplayNameFor(model => model.average_rating).ToString(), "Index", "Ratings")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.average_rating)/5
+            </dd>
         </dl>
     </div>
 </div>

@@ -13,6 +13,7 @@ using PagedList;
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class NotificationsController : Controller
     {
@@ -70,7 +71,7 @@ namespace ITO5032_Assignment.Controllers
                     list = list.OrderBy(u => u.notification_datetime);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             
@@ -205,6 +206,23 @@ namespace ITO5032_Assignment.Controllers
             {
                 return new EmptyResult();
             }
+        }
+
+        public ActionResult AckAllNotifications()
+        {
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList()[0];
+
+            var list = db.Notifications.Where(n => n.User_id == user.id);
+            foreach(Notification n in list)
+            {
+                if(!n.message.StartsWith("(ACK) "))
+                {
+                    n.message = "(ACK) " + n.message;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }

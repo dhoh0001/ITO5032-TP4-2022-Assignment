@@ -1,68 +1,74 @@
-﻿@{
+﻿@model ITO5032_Assignment.Models.Booking
+
+@{
     Page.Title = "Title goes here";
     //Layout = "Your Layout Page goes here";
 }
 
-<div>
-    <h1>Bookings</h1>
-    <div class="row">
-        <img class="col-md-4" src="~/Images/floorplan.png" alt="" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
+    <div>
+        <h1>Bookings</h1>
+        <div class="row">
+            <img class="col-md-4" src="~/Images/floorplan.png" alt="" />
 
-        <div class="form-group col-md-4">
-            <div class="control-label">location</div>
-            <div>
-                <input class="form-control" type="text" />
+            <hr />
+            <div class="col-md-4">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.start_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.start_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.start_datetime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.end_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.end_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.end_datetime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.User_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bookable_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Bookable_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Bookable_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                        <a href="/Bookings" class="btn btn-default">Back to List</a>
+                    </div>
+                </div>
             </div>
-            <div class="control-label">Room</div>
+
             <div>
-                <input class="form-control" type="text" />
+                Your Current Bookings
+                <br />
+                <textarea class="col-md-4"></textarea>
             </div>
-            <div class="control-label">Start Date</div>
-            <div>
-                <input id="booking_start_date" class="form-control" type="text" />
-                <script>
-                $(function () {
-                    $("#booking_start_date").datepicker({ format: 'dd/mm/yyyy' });
-                });
-                </script>
-            </div>
-            <div class="control-label">Start Time</div>
-            <div>
-                <input id="booking_start_time" class="form-control" type="text" />
-                <script>
-                    $(function () {
-                        $("#booking_start_time").timepicker({ timeFormat: 'HH:mm', dynamic: true});
-                    });
-                </script>
-            </div>
-            <div class="control-label">End Date</div>
-            <div>
-                <input id="booking_end_date" class="form-control" type="text" />
-                <script>
-                    $(function () {
-                        $("#booking_end_date").datepicker({ format: 'dd/mm/yyyy' });
-                    });
-                </script>
-            </div>
-            <div class="control-label">End Time</div>
-            <div>
-                <input id="booking_end_time" class="form-control" type="text" />
-                <script>
-                    $(function () {
-                        $("#booking_end_time").timepicker({ timeFormat: 'HH:mm', dynamic: true });
-                    });
-                </script>
-            </div>
-            <br />
-            <input type="submit" value="Save" class="btn btn-default" />
+
         </div>
-
-        <div>
-            Your Current Bookings
-            <br/>
-            <textarea class="col-md-4"></textarea>
-        </div>
-
     </div>
-</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
