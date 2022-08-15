@@ -46,15 +46,26 @@ else
 {
     <div><h1>Welcome to Dogs and Tots!</h1></div>
     <div><h2>Next Bookings</h2></div>
-    <div><h2>Locations</h2></div>
-    foreach (var item in Model.bookings)
-    {
+    <table>
+        @foreach (var item in Model.bookings)
+        {
         <tr>
-            <td>
+            <th style="text-align: center; padding: 10px">Start Date time</th>
+            <th style="text-align: center; padding: 10px">Location and Room</th>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding:10px">
                 @Html.DisplayFor(modelItem => item.start_datetime)
             </td>
+            <td style="text-align: center; padding: 10px">
+                @Html.DisplayFor(modelItem => item.Bookable.Location.room)
+            </td>
         </tr>
-    }
+        }
+    </table>
+
+    <div><h2>Locations</h2></div>
+
     <div id='map'></div>
     <script>
         // The value for 'accessToken' begins with 'pk...'
@@ -86,6 +97,10 @@ else
                 )
                 .addTo(map);
         });
-        
+
     </script>
+    <h4>Address</h4>
+    <div>Dogs and Tots Co.</div>
+    <div>57 Dickens St</div>
+    <div>Elwood VIC 3184</div>
 }

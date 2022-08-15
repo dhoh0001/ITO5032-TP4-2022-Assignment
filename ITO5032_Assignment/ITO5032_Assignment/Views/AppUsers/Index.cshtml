@@ -8,90 +8,103 @@
 }
 
 <h2>Users</h2>
-@if (@ViewData["isAdmin"] != null)
-{
-    <p>
-        <a href="/AppUsers/Create" class="btn btn-default">Create new user</a>
-    </p>
-}
-@using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            Date of Birth
-        </th>
-        <th>
-            Username
-        </th>
-        <th>
-            Password
-        </th>
-        <th>
-           Address
-        </th>
-        <th>
-            Email
-        </th>
-        <th></th>
-    </tr>
+<div class="col-md-8">
 
-    @foreach (var item in Model)
+    @if (@ViewData["isAdmin"] != null)
     {
-        <tr>
-            <td>
-                @ITO5032_Assignment.Enums.Roles.getRoleById(item.role_id).Name
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.first_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.last_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.date_of_birth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.username)
-            </td>
-            <td>
-                ********
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address1)
-                @Html.DisplayFor(modelItem => item.address2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @if (@ViewData["isAdmin"] != null)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                }
-            </td>
-        </tr>
+        <p>
+            <a href="/AppUsers/Create" class="btn btn-default">Create new user</a>
+        </p>
     }
+</div>
 
-</table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<div class="col-md-4">
+    @using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+</div>
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    <table class="table">
+        <tr>
+            <th>
+                id
+            </th>
+            <th>
+                @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Date of Birth
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Email
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @ITO5032_Assignment.Enums.Roles.getRoleById(item.role_id).Name
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.first_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_of_birth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                <td>
+                    ********
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address1)
+                    @Html.DisplayFor(modelItem => item.address2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @if (@ViewData["isAdmin"] != null)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

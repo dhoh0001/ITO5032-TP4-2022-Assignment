@@ -5,39 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Location Details</h2>
 
 <div>
-    <h4>Location</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.address1)
-        </dt>
+    <div class="col-md-offset-4 col-md-8">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.address1)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.address1)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.address1)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.address2)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.address2)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.address2)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.address2)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.room)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.room)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.room)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.room)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="row">
+    <div class="col-md-offset-5 col-md-7">
+        <p>
+            <a href="/Locations/Edit/@Model.id" class="btn btn-default">Edit</a>
+            <a href="/Locations" class="btn btn-default">Back to List</a>
+        </p>
+    </div>
+</div>

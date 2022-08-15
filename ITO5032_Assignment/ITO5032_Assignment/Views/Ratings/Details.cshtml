@@ -10,42 +10,51 @@
 <div>
     <h4>Rating</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.score)
-        </dt>
+    <div class="col-md-offset-4 col-md-8">
 
-        <dd>
-            @Html.DisplayFor(model => model.score)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.score)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.comment)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.score)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.comment)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.comment)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.service_provider_id)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.comment)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.service_provider_id)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.service_provider_id)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User_id)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Service_Provider.first_name)
+                @Html.DisplayFor(model => model.Service_Provider.last_name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.User_id)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User_id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.first_name)
+                @Html.DisplayFor(model => model.User.last_name)
+            </dd>
+    </div>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-md-offset-5 col-md-7">
+        <p>
+            <a href="/Ratings/Edit/@Model.id" class="btn btn-default">Edit</a>
+            <a href="/Ratings" class="btn btn-default">Back to List</a>
+        </p>
+    </div>
+</div>

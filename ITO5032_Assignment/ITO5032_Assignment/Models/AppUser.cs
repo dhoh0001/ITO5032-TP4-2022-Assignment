@@ -23,9 +23,7 @@ namespace ITO5032_Assignment.Models
             this.Bookings = new HashSet<Booking>();
         }
     
-        [Required]
         public int id { get; set; }
-        [Required]
         [Display(Name = "Role")]
         public int role_id { get; set; }
         [Required]
@@ -34,29 +32,22 @@ namespace ITO5032_Assignment.Models
         [Required]
         [Display(Name = "Last Name")]
         public string last_name { get; set; }
-        [Required]
         [Display(Name = "Date of Birth")]
         public System.DateTime date_of_birth { get; set; }
-        [Required]
         [Display(Name = "Username")]
         public string username { get; set; }
         [Required]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string password { get; set; }
-        [Required]
         public string salt { get; set; }
-        [Required]
         [Display(Name = "Address")]
         public string address1 { get; set; }
-        [Required]
         [Display(Name = "")]
         public string address2 { get; set; }
-        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string email { get; set; }
-        [Required]
         public string external_id { get; set; }
         public float average_rating { get; set; }
 

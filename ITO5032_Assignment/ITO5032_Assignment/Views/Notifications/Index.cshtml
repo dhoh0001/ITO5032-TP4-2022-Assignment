@@ -9,22 +9,31 @@
 }
 
 <h2>Notifications</h2>
-@if (@ViewData["isAdmin"] != null)
-{
+<div class="col-md-8">
     <p>
-        <a href="/Notifications/Create" class="btn btn-default">Create New</a>
+
+        @if (@ViewData["isAdmin"] != null)
+        {
+            <a href="/Notifications/Create" class="btn btn-default">Create New</a>
+        }
         <a href="/Notifications/AckAllNotifications" class="btn btn-default">Acknowledge all notifications</a>
     </p>
-}
-@using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
-}
+</div>
+
+<div class="col-md-4">
+    @using (Html.BeginForm("Index", "Notifications", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+</div>
 <table class="table">
     <tr>
+        <th>
+            id
+        </th>
         <th>
             Message
         </th>
@@ -41,6 +50,9 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.message)
             </td>
             <td>
@@ -55,7 +67,7 @@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

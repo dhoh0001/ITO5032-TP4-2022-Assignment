@@ -7,17 +7,51 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ITO5032_Assignment.Models;
+using PagedList;
+
 
 namespace ITO5032_Assignment.Controllers
 {
+    [Authorize]
+    [RequireHttps]
     public class LocationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Locations
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Locations.ToList());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var list = from usr in db.Locations select usr;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.address1.Contains(searchString)
+                                        || s.address2.Contains(searchString)
+                                       || s.room.Contains(searchString));
+            }
+            list = list.OrderBy(u => u.id);
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            if (list.ToList().Count > 0)
+            {
+                foreach (Location l in list)
+                {
+                    l.file = db.Files.Where(item => item.id == l.file_id).ToList()[0];
+                }
+            }
+
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Locations/Details/5
@@ -32,6 +66,8 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            location.file = db.Files.Where(item => item.id == location.file_id).ToList()[0];
+
             return View(location);
         }
 
@@ -101,6 +137,7 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            location.file = db.Files.Where(item => item.id == location.file_id).ToList()[0];
             return View(location);
         }
 

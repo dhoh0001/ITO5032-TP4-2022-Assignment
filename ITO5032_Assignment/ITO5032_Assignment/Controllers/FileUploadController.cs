@@ -48,13 +48,13 @@ namespace ITO5032_Assignment.Controllers
                 {
                     ViewBag.Message = "File upload failed!!";
                 }
-                return RedirectToAction("Index");
+                return View("Index");
 
             }
             catch (Exception)
             {
                 ViewBag.Message = "File upload failed!!";
-                return RedirectToAction("Index");
+                return View("Index");
             }
         }
     }

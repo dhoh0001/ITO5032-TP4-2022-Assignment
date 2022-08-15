@@ -11,39 +11,47 @@
 <div>
     <h4>Location</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.address1)
-        </dt>
+    <div class="col-md-offset-4 col-md-8">
+        <h3>WARNING: THIS ACTION IS PERMANENT</h3>
+    </div>
+    <div class="col-md-offset-4 col-md-8">
 
-        <dd>
-            @Html.DisplayFor(model => model.address1)
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.address1)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.address2)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.address1)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.address2)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.address2)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.room)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.address2)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.room)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.room)
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.room)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
+    </div>
+    <div class="col-md-offset-5 col-md-7">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <a href="/Locations" class="btn btn-default">Back to List</a>
         </div>
-    }
+        }
+    </div>
 </div>

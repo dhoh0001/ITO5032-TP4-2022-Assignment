@@ -47,14 +47,17 @@ namespace ITO5032_Assignment.Controllers
                                        || s.User.last_name.Contains(searchString)
                                        || s.message.Contains(searchString));
             }
-            if (user[0].role_id == Roles.ADMIN.Id)
+            if (user.Count > 0)
             {
-                ViewData["isAdmin"] = "ADMIN";
-            }
-            else
-            {
-                int i = user[0].id;
-                list = list.Where(n => n.User_id == i);
+                if (user[0].role_id == Roles.ADMIN.Id)
+                {
+                    ViewData["isAdmin"] = "ADMIN";
+                }
+                else
+                {
+                    int i = user[0].id;
+                    list = list.Where(n => n.User_id == i);
+                }
             }
             switch (sortOrder)
             {
@@ -118,7 +121,14 @@ namespace ITO5032_Assignment.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Notifications.Add(notification);
+                foreach(AppUser user in db.AppUsers)
+                {
+                    Notification newNot = new Notification();
+                    newNot.notification_datetime = DateTime.Now;
+                    newNot.User_id = user.id;
+                    newNot.message = notification.message;
+                    db.Notifications.Add(newNot);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -196,9 +206,13 @@ namespace ITO5032_Assignment.Controllers
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
 
-            if (db.Notifications.ToList().Count > 0 && user[0].role_id != Roles.ADMIN.Id) {
+            if (db.Notifications.ToList().Count > 0 && user.Count > 0 && user[0].role_id != Roles.ADMIN.Id) {
                 int i = user[0].id;
-                List<Notification> list = db.Notifications.Where(n => n.User_id == i).ToList();
+                List<Notification> list = db.Notifications.Where(n => n.User_id == i).Where(n => !n.message.Contains("(ACK)")).ToList();
+                if(list.Count <= 0)
+                {
+                    return new EmptyResult();
+                }
                 ViewData["numNotifications"] = list.Count;
                 return PartialView("_BadgePartial");
             } 
@@ -219,9 +233,10 @@ namespace ITO5032_Assignment.Controllers
                 if(!n.message.StartsWith("(ACK) "))
                 {
                     n.message = "(ACK) " + n.message;
-                    db.SaveChanges();
                 }
             }
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }

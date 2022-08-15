@@ -52,6 +52,15 @@ namespace ITO5032_Assignment.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
+            if (list.ToList().Count > 0)
+            {
+                foreach (Rating r in list)
+                {
+                    r.User = db.AppUsers.Where(item => item.id == r.User_id).ToList()[0];
+                    r.Service_Provider = db.AppUsers.Where(item => item.id == r.service_provider_id).ToList()[0];
+                }
+            }
+
             return View(list.ToPagedList(pageNumber, pageSize));
         }
 
@@ -67,6 +76,8 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            rating.User = db.AppUsers.Where(item => item.id == rating.User_id).ToList()[0];
+            rating.Service_Provider = db.AppUsers.Where(item => item.id == rating.service_provider_id).ToList()[0];
             return View(rating);
         }
 
@@ -136,6 +147,8 @@ namespace ITO5032_Assignment.Controllers
             {
                 return HttpNotFound();
             }
+            rating.User = db.AppUsers.Where(item => item.id == rating.User_id).ToList()[0];
+            rating.Service_Provider = db.AppUsers.Where(item => item.id == rating.service_provider_id).ToList()[0];
             return View(rating);
         }
 

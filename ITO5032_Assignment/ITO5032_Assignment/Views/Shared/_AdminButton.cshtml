@@ -1,9 +1,12 @@
 ﻿<li>
-    @Html.ActionLink("Add Location", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
+    @Html.ActionLink("Add Location", "Index", "Locations", routeValues: null, htmlAttributes: new { id = "location" })
 </li>
 <li>
-    @Html.ActionLink("File Upload", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
+    @Html.ActionLink("File Upload", "Index", "FileUpload", routeValues: null, htmlAttributes: new { id = "fileUpload" })
 </li>
 <li>
-    @Html.ActionLink("Email Users", "Index", "AppUsers", routeValues: null, htmlAttributes: new { id = "userManagement" })
+    @Html.ActionLink("Email Users", "Index", "Emailing", routeValues: null, htmlAttributes: new { id = "emailing" })
+</li>
+<li>
+    @Html.ActionLink("Ratings", "Index", "Ratings", routeValues: null, htmlAttributes: new { id = "ratings" })
 </li>

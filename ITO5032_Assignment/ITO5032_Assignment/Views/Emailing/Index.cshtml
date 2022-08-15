@@ -10,11 +10,57 @@
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary()
-        <p>From: @Html.TextBoxFor(m => m.From)</p>
-        <p>To: @Html.TextBoxFor(m => m.To)</p>
-        <p>Subject: @Html.TextBoxFor(m => m.Subject)</p>
-        <p>Body: @Html.TextAreaFor(m => m.Body)</p>
-        <input type="submit" value="Send" />
-        <p>Status: @ViewBag.Message</p>
+        <dl class="dl-horizontal">
+
+            <dt>
+                From:
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(m => m.From)
+            </dd>
+
+            <dt>
+                To:
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(m => m.To)
+            </dd>
+
+            <dt>
+                Subject:
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(m => m.Subject)
+            </dd>
+
+            <dt>
+                Body:
+            </dt>
+
+            <dd>
+                @Html.TextAreaFor(m => m.Body)
+            </dd>
+
+            <dt>
+
+            </dt>
+
+            <dd>
+                <input type="submit" value="Send" />
+            </dd>
+
+            <dt>
+                Status
+            </dt>
+
+            <dd>
+                <p>Status: @ViewBag.Message</p>
+
+            </dd>
+        </dl>
     }
+
 </fieldset> 

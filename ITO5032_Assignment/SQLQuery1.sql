@@ -1,2 +1,2 @@
-﻿select * from AppUsers;
-update appUsers set role_id = 1
+﻿select * from aspnetusers;
+delete from aspnetusers

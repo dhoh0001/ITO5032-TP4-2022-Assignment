@@ -24,6 +24,11 @@
                 @Html.ValidationMessageFor(model => model.start_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
+        <script>
+            $(function () {
+                $("#start_datetime").datepicker({ format: 'dd/mm/yyyy' });
+            });
+        </script>
 
         <div class="form-group">
             @Html.LabelFor(model => model.end_datetime, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -32,6 +37,11 @@
                 @Html.ValidationMessageFor(model => model.end_datetime, "", new { @class = "text-danger" })
             </div>
         </div>
+        <script>
+            $(function () {
+                $("#end_datetime").datepicker({ format: 'dd/mm/yyyy' });
+            });
+        </script>
 
         <div class="form-group">
             @Html.LabelFor(model => model.User_id, htmlAttributes: new { @class = "control-label col-md-2" })

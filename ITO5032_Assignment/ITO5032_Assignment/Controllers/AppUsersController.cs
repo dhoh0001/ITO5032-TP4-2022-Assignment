@@ -71,14 +71,14 @@ namespace ITO5032_Assignment.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
-            if (user[0].role_id == Roles.ADMIN.Id)
+            if (user.Count > 0 && user[0].role_id == Roles.ADMIN.Id)
             {
                 ViewData["isAdmin"] = "ADMIN";
                 return View(list.ToPagedList(pageNumber, pageSize));
             }
             else
             {
-                return View(user);
+                return View(list.ToPagedList(pageNumber, pageSize));
             }
         }
 
@@ -118,6 +118,7 @@ namespace ITO5032_Assignment.Controllers
         {
             if (ModelState.IsValid)
             {
+                appUser.username = appUser.email;
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");

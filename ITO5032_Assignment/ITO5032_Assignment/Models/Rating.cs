@@ -29,7 +29,8 @@ namespace ITO5032_Assignment.Models
         [Required]
         [Display(Name = "User")]
         public int User_id { get; set; }
-    
+
+        public virtual AppUser Service_Provider { get; set; }
         public virtual AppUser User { get; set; }
     }
 }

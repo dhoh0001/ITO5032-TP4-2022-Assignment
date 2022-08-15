@@ -10,6 +10,8 @@ using ITO5032_Assignment.Enums;
 using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace ITO5032_Assignment.Controllers
 {
@@ -36,7 +38,7 @@ namespace ITO5032_Assignment.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            var id = User.Identity.GetUserId();
+            var id = User.Identity.GetUserId(); 
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
             var list = from usr in db.Bookings select usr;
 
@@ -54,10 +56,10 @@ namespace ITO5032_Assignment.Controllers
                     list = list.OrderByDescending(u => u.start_datetime);
                     break;
                 case "user":
-                    list = list.OrderBy(u => u.User.first_name + u.User.last_name);
+                    list = list.OrderBy(u => u.User_id);
                     break;
                 case "user_desc":
-                    list = list.OrderByDescending(u => u.User.first_name + u.User.last_name);
+                    list = list.OrderByDescending(u => u.User_id);
                     break;
                 default:
                     list = list.OrderBy(u => u.start_datetime);
@@ -66,25 +68,25 @@ namespace ITO5032_Assignment.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
-            List<AppUser> users = db.AppUsers.ToList();
-            foreach (Booking b in list)
+            if (list.ToList().Count > 0 )
             {
-                foreach (AppUser u in users)
+                foreach (Booking b in list)
                 {
-                    if (u.id == b.User_id)
-                        b.User = u;
+                    b.User = db.AppUsers.Where(item => item.id == b.User_id).ToList()[0];
+                    b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
                 }
-                b.User = users.Find(item => item.id == b.User_id);
-                b.Bookable = db.Bookables.Where(bkbl => bkbl.id == b.Bookable_id).ToList()[0];
             }
-            if (user[0].role_id == Roles.ADMIN.Id)
+            if (user.Count > 0)
             {
-                ViewData["isAdmin"] = "ADMIN";
-            }
-            else
-            {
-                int i = user[0].id;
-                list = list.Where(n => n.User_id == i);
+                if (user[0].role_id == Roles.ADMIN.Id)
+                {
+                    ViewData["isAdmin"] = "ADMIN";
+                }
+                else
+                {
+                    int i = user[0].id;
+                    list = list.Where(n => n.User_id == i);
+                }
             }
             return View(list.ToPagedList(pageNumber, pageSize));
 
@@ -122,12 +124,73 @@ namespace ITO5032_Assignment.Controllers
         {
             if (ModelState.IsValid)
             {
+                string message = "A booking for has been placed from" + booking.start_datetime + " to " + booking.end_datetime
+
                 db.Bookings.Add(booking);
+                Notification not = new Notification();
+                not.message = message;
+                not.User_id = booking.User_id;
+                not.notification_datetime = DateTime.Now;
+                db.Notifications.Add(not);
                 db.SaveChanges();
+                sendEmail(booking, message);
+                
                 return RedirectToAction("Index");
             }
 
             return View(booking);
+        }
+
+        public async void sendEmail(Booking booking, string message)
+        {
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("dogsandtots@gmail.com", "Dogs And Tots");
+            var subject = "Dogs and Tots Booking!";
+            List<EmailAddress> tos = new List<EmailAddress>();
+            var to1 = db.AppUsers.Where(u => u.id == booking.User_id).ToList();
+            var bookable = db.Bookables.Where(b => b.id == booking.Bookable_id).ToList()[0];
+            var service_provider = db.AppUsers.Where(sp => sp.id == bookable.service_provider_id).ToList()[0];
+
+            if (to1.Count > 0)
+            {
+                tos.Add(new EmailAddress(to1[0].email, to1[0].first_name + " " + to1[0].last_name));
+            }
+            var to2 = db.AppUsers.Where(u => u.id == booking.Bookable.service_provider_id).ToList();
+            if (to2.Count > 0)
+            {
+                tos.Add(new EmailAddress(service_provider.email, service_provider.first_name + " " + service_provider.last_name));
+            }
+            var plainTextContent = message;
+            var htmlContent = message;
+            var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, tos, subject, plainTextContent, htmlContent);
+            byte[] bytes = null;
+            try
+            {
+                bytes = System.IO.File.ReadAllBytes("C:/Users/danie/source/repos/ITO5032_Assignment/ITO5032_Assignment/ITO5032_Assignment/Images/dogsandtots.png");
+            }
+            catch (Exception e)
+            {
+                var ex = e;
+            }
+            var file = Convert.ToBase64String(bytes);
+            msg.AddAttachment("logo.png", file);
+
+            byte[] bytes2 = null;
+            var location = db.Locations.Where(l => l.id == bookable.Location_id).ToList()[0];
+            var file2 = db.Files.Where(f => f.id == location.file_id).ToList()[0];
+            try
+            {
+                bytes2 = System.IO.File.ReadAllBytes(file2.file_location);
+            }
+            catch (Exception e)
+            {
+                var ex = e;
+            }
+            var file2attach = Convert.ToBase64String(bytes2);
+            msg.AddAttachment("logo.png", file2attach);
+
+            var response = await client.SendEmailAsync(msg);
         }
 
         // GET: Bookings/Edit/5
@@ -199,7 +262,11 @@ namespace ITO5032_Assignment.Controllers
         }
         public ActionResult UserBooking()
         {
-            return View();
+            var id = User.Identity.GetUserId();
+            var user = db.AppUsers.Where(u => u.external_id == id).ToList();
+            var bookings = db.Bookings.Where(b => b.User_id == user[0].id);
+            bookings = bookings.OrderBy(b => b.start_datetime);
+            return View(bookings.ToPagedList(1, bookings.ToList().Count()));
         }
     }
 }

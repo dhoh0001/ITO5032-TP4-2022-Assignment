@@ -33,7 +33,8 @@
             </dt>
 
             <dd>
-                @Html.ActionLink(@Model.User.first_name + " " + @Model.User.last_name, "Details/" + Model.User_id, "AppUsers")
+                @Html.DisplayFor(model => model.User.first_name)
+                @Html.DisplayFor(model => model.User.last_name)
             </dd>
 
             <dt>
@@ -41,8 +42,7 @@
             </dt>
 
             <dd>
-                @Html.ActionLink(@Model.Bookable.name, "Details/" + Model.Bookable_id, "Bookables")
-                
+                @Html.DisplayFor(model => model.Bookable.name)
             </dd>
 
         </dl>

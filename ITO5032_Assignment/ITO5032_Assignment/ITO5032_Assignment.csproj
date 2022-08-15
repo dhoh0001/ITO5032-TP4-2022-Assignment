@@ -271,6 +271,46 @@
     <Compile Include="Migrations\202208141012497_migration32.designer.cs">
       <DependentUpon>202208141012497_migration32.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208150227242_migration4.cs" />
+    <Compile Include="Migrations\202208150227242_migration4.designer.cs">
+      <DependentUpon>202208150227242_migration4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150253246_migration5.cs" />
+    <Compile Include="Migrations\202208150253246_migration5.designer.cs">
+      <DependentUpon>202208150253246_migration5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150303259_migration6.cs" />
+    <Compile Include="Migrations\202208150303259_migration6.designer.cs">
+      <DependentUpon>202208150303259_migration6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150840124_migration61.cs" />
+    <Compile Include="Migrations\202208150840124_migration61.designer.cs">
+      <DependentUpon>202208150840124_migration61.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150844133_migration62.cs" />
+    <Compile Include="Migrations\202208150844133_migration62.designer.cs">
+      <DependentUpon>202208150844133_migration62.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150855107_migration63.cs" />
+    <Compile Include="Migrations\202208150855107_migration63.designer.cs">
+      <DependentUpon>202208150855107_migration63.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150953498_migration64.cs" />
+    <Compile Include="Migrations\202208150953498_migration64.designer.cs">
+      <DependentUpon>202208150953498_migration64.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208150957176_migration65.cs" />
+    <Compile Include="Migrations\202208150957176_migration65.designer.cs">
+      <DependentUpon>202208150957176_migration65.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208151235004_migration66.cs" />
+    <Compile Include="Migrations\202208151235004_migration66.designer.cs">
+      <DependentUpon>202208151235004_migration66.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202208152338511_migration7.cs" />
+    <Compile Include="Migrations\202208152338511_migration7.designer.cs">
+      <DependentUpon>202208152338511_migration7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppUser.cs">
@@ -512,6 +552,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208141012497_migration32.resx">
       <DependentUpon>202208141012497_migration32.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150227242_migration4.resx">
+      <DependentUpon>202208150227242_migration4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150253246_migration5.resx">
+      <DependentUpon>202208150253246_migration5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150303259_migration6.resx">
+      <DependentUpon>202208150303259_migration6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150840124_migration61.resx">
+      <DependentUpon>202208150840124_migration61.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150844133_migration62.resx">
+      <DependentUpon>202208150844133_migration62.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150855107_migration63.resx">
+      <DependentUpon>202208150855107_migration63.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150953498_migration64.resx">
+      <DependentUpon>202208150953498_migration64.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208150957176_migration65.resx">
+      <DependentUpon>202208150957176_migration65.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208151235004_migration66.resx">
+      <DependentUpon>202208151235004_migration66.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208152338511_migration7.resx">
+      <DependentUpon>202208152338511_migration7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

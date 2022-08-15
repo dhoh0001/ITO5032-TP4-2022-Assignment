@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,8 @@ namespace ITO5032_Assignment.Controllers
                 _userManager = value;
             }
         }
+
+        [AllowAnonymous]
         public ActionResult ExternalLoginsList()
         {
             ExternalLoginListViewModel extView = new ExternalLoginListViewModel();
@@ -75,6 +78,11 @@ namespace ITO5032_Assignment.Controllers
                 bookings.Add(sorted[0]);
 
             LoginViewModel model = new LoginViewModel();
+            foreach(Booking booking in bookings)
+            {
+                booking.Bookable = db.Bookables.Where(b => b.id == booking.Bookable_id).ToList()[0];
+                booking.Bookable.Location = db.Locations.Where(l => l.id == booking.Bookable.Location_id).ToList()[0];
+            }
             model.bookings = bookings;
 
             return View(model);
@@ -162,7 +170,8 @@ namespace ITO5032_Assignment.Controllers
                     appUser.password = model.Password;
                     appUser.first_name = model.first_name;
                     appUser.last_name = model.last_name;
-                    appUser.date_of_birth = DateTime.Parse(model.date_of_birth);
+                    String[] dob = model.date_of_birth.Split('/');
+                    appUser.date_of_birth = new DateTime(Int32.Parse(dob[2]), Int32.Parse(dob[0]), Int32.Parse(dob[1]));
                     appUser.address1 = model.address1;
                     appUser.address2 = model.address2;
                     appUser.username = model.Email;
@@ -200,7 +209,7 @@ namespace ITO5032_Assignment.Controllers
             var id = User.Identity.GetUserId();
             var user = db.AppUsers.Where(u => u.external_id == id).ToList();
 
-            if (user[0].role_id == Roles.ADMIN.Id)
+            if (user.Count > 0 && user[0].role_id == Roles.ADMIN.Id)
             {
                 ViewData["isAdmin"] = "ADMIN";
                 return PartialView("_AdminButton");

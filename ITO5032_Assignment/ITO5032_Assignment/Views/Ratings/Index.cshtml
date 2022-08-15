@@ -3,65 +3,78 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <h2>Index</h2>
-
+<h2>Index</h2>
+<div class="col-md-8">
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a href="/Ratings/Create" class="btn btn-default">Create New</a>
+
     </p>
-    @using (Html.BeginForm("Index", "AppUsers", FormMethod.Get))
+</div>
+
+<div class="col-md-4">
+    @using (Html.BeginForm("Index", "Ratings", FormMethod.Get))
     {
         <p>
             Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
             <input type="submit" value="Search" />
         </p>
     }
-    <table class="table">
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            id
+        </th>
+        <th>
+            Score
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            Service Provider
+        </th>
+        <th>
+            User
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                Score
-            </th>
-            <th>
-                Comment
-            </th>
-            <th>
-                Service Provider
-            </th>
-            <th>
-                User
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.score)/5
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service_Provider.first_name)
+                @Html.DisplayFor(modelItem => item.Service_Provider.last_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.first_name)
+                @Html.DisplayFor(modelItem => item.User.last_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.score)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.comment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.service_provider_id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User_id)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }
-
-    </table>
-    <br />
+</table>
+<br />
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",

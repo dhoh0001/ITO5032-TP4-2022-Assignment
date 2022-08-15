@@ -40,13 +40,14 @@ namespace ITO5032_Assignment.Models
         public string available_end_time { get; set; }
         [Required]
         [Display(Name = "Max Occupancy")]
-        public string max_occupancy { get; set; }
+        public int max_occupancy { get; set; }
         [Required]
         public string booking_type { get; set; }
         [Required]
         [Display(Name = "Location")]
         public int Location_id { get; set; }
-    
+        public int service_provider_id { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual Location Location { get; set; }

@@ -27,13 +27,19 @@ namespace ITO5032_Assignment.Models
         [Display(Name = "Address")]
         public string address1 { get; set; }
         [Required]
-        [Display(Name = "Address")]
+        [Display(Name = " ")]
         public string address2 { get; set; }
         [Required]
-        [Display(Name = " ")]
+        [Display(Name = "Room")]
         public string room { get; set; }
+        [Required]
+        [Display(Name = "File")]
+        public int file_id {get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bookable> Bookables { get; set; }
+
+        public virtual File file { get; set; }
+
     }
 }
