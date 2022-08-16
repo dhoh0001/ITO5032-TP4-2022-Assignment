@@ -18,7 +18,7 @@
 
 <div class="col-md-4">
 
-    @using (Html.BeginForm("Index", "Files", FormMethod.Get))
+    @using (Html.BeginForm("Index", "Locations", FormMethod.Get))
     {
         <p>
             Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
