@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ITO5032_Assignment.Enums;
@@ -141,7 +142,7 @@ namespace ITO5032_Assignment.Controllers
             return View(booking);
         }
 
-        public async void sendEmail(Booking booking, string message)
+        public async Task sendEmail(Booking booking, string message)
         {
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             var client = new SendGridClient(apiKey);

@@ -86,7 +86,7 @@ namespace ITO5032_Assignment.Controllers
                     if (u.id == not.User_id)
                         not.User = u;
                 }
-                not.User = users.Find(item => item.id == not.User_id);
+                not.User = db.AppUsers.Where(u => u.id == not.User_id).FirstOrDefault();
             }
             return View(list.ToPagedList(pageNumber, pageSize));
         }

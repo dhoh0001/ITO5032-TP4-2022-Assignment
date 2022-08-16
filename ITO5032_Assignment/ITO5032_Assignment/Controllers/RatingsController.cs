@@ -92,7 +92,7 @@ namespace ITO5032_Assignment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,score,comment,service_provider_id,User_id")] Rating rating)
+        public ActionResult Create([Bind(Include = "id,score,comment,User_id")] Rating rating)
         {
             if (ModelState.IsValid)
             {
