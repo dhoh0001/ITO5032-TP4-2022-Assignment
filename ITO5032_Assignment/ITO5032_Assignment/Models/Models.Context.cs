@@ -32,5 +32,10 @@ namespace ITO5032_Assignment.Models
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Bookable> Bookables { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }
