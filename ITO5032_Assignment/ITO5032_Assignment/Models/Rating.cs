@@ -24,5 +24,6 @@ namespace ITO5032_Assignment.Models
     
         public virtual AppUser User { get; set; }
         public virtual AppUser AppUser { get; set; }
+        public virtual AppUser Service_Provider { get; set; }
     }
 }

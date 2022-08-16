@@ -32,6 +32,6 @@ namespace ITO5032_Assignment.Models
         public virtual ICollection<Bookable> Bookables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bookable> Bookables1 { get; set; }
-        public virtual File File { get; set; }
+        public virtual File file { get; set; }
     }
 }
