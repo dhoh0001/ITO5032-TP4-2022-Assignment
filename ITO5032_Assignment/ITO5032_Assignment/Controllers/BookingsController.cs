@@ -124,7 +124,7 @@ namespace ITO5032_Assignment.Controllers
         {
             if (ModelState.IsValid)
             {
-                string message = "A booking for has been placed from" + booking.start_datetime + " to " + booking.end_datetime
+                string message = "A booking for has been placed from" + booking.start_datetime + " to " + booking.end_datetime;
 
                 db.Bookings.Add(booking);
                 Notification not = new Notification();

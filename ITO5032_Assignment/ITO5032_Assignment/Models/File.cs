@@ -11,17 +11,20 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class File
     {
-        [Required]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public File()
+        {
+            this.Locations = new HashSet<Location>();
+        }
+    
         public int id { get; set; }
-        [Required]
-        [Display(Name = "File Name")]
         public string file_name { get; set; }
-        [Required]
-        [Display(Name = "File Location")]
         public string file_location { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Locations { get; set; }
     }
 }

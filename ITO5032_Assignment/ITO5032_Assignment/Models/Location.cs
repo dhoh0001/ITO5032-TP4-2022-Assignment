@@ -11,35 +11,27 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Location()
         {
             this.Bookables = new HashSet<Bookable>();
+            this.Bookables1 = new HashSet<Bookable>();
         }
-
-        [Required]
+    
         public int id { get; set; }
-        [Required]
-        [Display(Name = "Address")]
         public string address1 { get; set; }
-        [Required]
-        [Display(Name = " ")]
         public string address2 { get; set; }
-        [Required]
-        [Display(Name = "Room")]
         public string room { get; set; }
-        [Required]
-        [Display(Name = "File")]
-        public int file_id {get; set; }
+        public int file_id { get; set; }
+        public Nullable<int> file_id1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bookable> Bookables { get; set; }
-
-        public virtual File file { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bookable> Bookables1 { get; set; }
+        public virtual File File { get; set; }
     }
 }

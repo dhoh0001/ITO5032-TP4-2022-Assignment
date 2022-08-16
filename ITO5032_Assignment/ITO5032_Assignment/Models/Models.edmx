@@ -4,174 +4,339 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ModelsStoreContainer">
-    <EntitySet Name="AppUsers" EntityType="Models.Store.AppUsers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Files" EntityType="Models.Store.Files" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Notifications" EntityType="Models.Store.Notifications" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Ratings" EntityType="Models.Store.Ratings" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Bookings" EntityType="Models.Store.Bookings" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Bookables" EntityType="Models.Store.Bookables" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Locations" EntityType="Models.Store.Locations" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="UserNotification" Association="Models.Store.UserNotification">
-      <End Role="User" EntitySet="AppUsers" />
-      <End Role="Notification" EntitySet="Notifications" />
-    </AssociationSet>
-    <AssociationSet Name="UserRating" Association="Models.Store.UserRating">
-      <End Role="User" EntitySet="AppUsers" />
-      <End Role="Rating" EntitySet="Ratings" />
-    </AssociationSet>
-    <AssociationSet Name="UserBooking" Association="Models.Store.UserBooking">
-      <End Role="User" EntitySet="AppUsers" />
-      <End Role="Booking" EntitySet="Bookings" />
-    </AssociationSet>
-    <AssociationSet Name="BookingBookable" Association="Models.Store.BookingBookable">
-      <End Role="Booking" EntitySet="Bookings" />
-      <End Role="Bookable" EntitySet="Bookables" />
-    </AssociationSet>
-    <AssociationSet Name="BookableLocation" Association="Models.Store.BookableLocation">
-      <End Role="Bookable" EntitySet="Bookables" />
-      <End Role="Location" EntitySet="Locations" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="AppUsers">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="role_id" Type="int" Nullable="false" />
-    <Property Name="first_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="last_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="date_of_birth" Type="datetime" Nullable="false" />
-    <Property Name="username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="salt" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="external_id" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Files">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="file_name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="file_location" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Notifications">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="message" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="notification_datetime" Type="datetime" Nullable="false" />
-    <Property Name="User_id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Ratings">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="score" Type="int" Nullable="false" />
-    <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="service_provider_id" Type="int" Nullable="false" />
-    <Property Name="User_id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Bookings">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="start_datetime" Type="datetime" Nullable="false" />
-    <Property Name="end_datetime" Type="datetime" Nullable="false" />
-    <Property Name="User_id" Type="int" Nullable="false" />
-    <Property Name="Bookable_id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Bookables">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="available_day" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="available_start_time" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="available_end_time" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="max_occupancy" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="booking_type" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Location_id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Locations">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="room" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <Association Name="UserNotification">
-    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
-    <End Role="Notification" Type="Models.Store.Notifications" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Notification">
-        <PropertyRef Name="User_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserRating">
-    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
-    <End Role="Rating" Type="Models.Store.Ratings" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Rating">
-        <PropertyRef Name="User_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="UserBooking">
-    <End Role="User" Type="Models.Store.AppUsers" Multiplicity="1" />
-    <End Role="Booking" Type="Models.Store.Bookings" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Booking">
-        <PropertyRef Name="User_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="BookingBookable">
-    <End Role="Booking" Type="Models.Store.Bookings" Multiplicity="*" />
-    <End Role="Bookable" Type="Models.Store.Bookables" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Bookable">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Booking">
-        <PropertyRef Name="Bookable_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="BookableLocation">
-    <End Role="Bookable" Type="Models.Store.Bookables" Multiplicity="*" />
-    <End Role="Location" Type="Models.Store.Locations" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Bookable">
-        <PropertyRef Name="Location_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date_of_birth" Type="datetime" Nullable="false" />
+          <Property Name="username" Type="nvarchar(max)" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="salt" Type="nvarchar(max)" />
+          <Property Name="address1" Type="nvarchar(max)" />
+          <Property Name="address2" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar(max)" />
+          <Property Name="external_id" Type="nvarchar(max)" />
+          <Property Name="average_rating" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookables">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="available_day" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="available_start_time" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="available_end_time" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="max_occupancy" Type="int" Nullable="false" />
+          <Property Name="booking_type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Location_id" Type="int" Nullable="false" />
+          <Property Name="Location_id1" Type="int" />
+          <Property Name="service_provider_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="start_datetime" Type="datetime" Nullable="false" />
+          <Property Name="end_datetime" Type="datetime" Nullable="false" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="Bookable_id" Type="int" Nullable="false" />
+          <Property Name="Bookable_id1" Type="int" />
+          <Property Name="User_id1" Type="int" />
+        </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="file_name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="file_location" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="room" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="file_id" Type="int" Nullable="false" />
+          <Property Name="file_id1" Type="int" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="notification_datetime" Type="datetime" Nullable="false" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="User_id1" Type="int" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="score" Type="int" Nullable="false" />
+          <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="service_provider_id" Type="int" Nullable="false" />
+          <Property Name="User_id" Type="int" Nullable="false" />
+          <Property Name="User_id1" Type="int" />
+          <Property Name="AppUser_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookables_dbo_Locations_Location_id1">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Bookables" Type="Self.Bookables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookables">
+              <PropertyRef Name="Location_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_AppUsers_User_id1">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="User_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Bookables_Bookable_id1">
+          <End Role="Bookables" Type="Self.Bookables" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookables">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Bookable_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Locations_dbo_Files_file_id1">
+          <End Role="Files" Type="Self.Files" Multiplicity="0..1" />
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Files">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="file_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Notifications_dbo_AppUsers_User_id1">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="User_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ratings_dbo_AppUsers_AppUser_id">
+          <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="0..1" />
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUsers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ratings">
+              <PropertyRef Name="AppUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookables" EntityType="Self.Bookables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookables_dbo_Locations_Location_id1" Association="Self.FK_dbo_Bookables_dbo_Locations_Location_id1">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Bookables" EntitySet="Bookables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_AppUsers_User_id1" Association="Self.FK_dbo_Bookings_dbo_AppUsers_User_id1">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Bookables_Bookable_id1" Association="Self.FK_dbo_Bookings_dbo_Bookables_Bookable_id1">
+            <End Role="Bookables" EntitySet="Bookables" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Locations_dbo_Files_file_id1" Association="Self.FK_dbo_Locations_dbo_Files_file_id1">
+            <End Role="Files" EntitySet="Files" />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Notifications_dbo_AppUsers_User_id1" Association="Self.FK_dbo_Notifications_dbo_AppUsers_User_id1">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ratings_dbo_AppUsers_AppUser_id" Association="Self.FK_dbo_Ratings_dbo_AppUsers_AppUser_id">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="Ratings" EntitySet="Ratings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -203,6 +368,47 @@
             <End Role="Bookable" EntitySet="Bookables" />
             <End Role="Location" EntitySet="Locations" />
           </AssociationSet>
+          <EntitySet Name="C__MigrationHistory" EntityType="Models.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Models.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Models.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Models.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Models.AspNetUser" />
+          <AssociationSet Name="FK_dbo_Bookings_dbo_AppUsers_User_id1" Association="Models.FK_dbo_Bookings_dbo_AppUsers_User_id1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Notifications_dbo_AppUsers_User_id1" Association="Models.FK_dbo_Notifications_dbo_AppUsers_User_id1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Ratings_dbo_AppUsers_AppUser_id" Association="Models.FK_dbo_Ratings_dbo_AppUsers_AppUser_id">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookables_dbo_Locations_Location_id1" Association="Models.FK_dbo_Bookables_dbo_Locations_Location_id1">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Bookable" EntitySet="Bookables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Bookings_dbo_Bookables_Bookable_id1" Association="Models.FK_dbo_Bookings_dbo_Bookables_Bookable_id1">
+            <End Role="Bookable" EntitySet="Bookables" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Locations_dbo_Files_file_id1" Association="Models.FK_dbo_Locations_dbo_Files_file_id1">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Models.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppUser">
           <Key>
@@ -210,37 +416,44 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="role_id" Type="Int32" Nullable="false" />
-          <Property Name="first_name" Type="String" Nullable="false" />
-          <Property Name="last_name" Type="String" Nullable="false" />
-          <Property Name="date_of_birth" Type="DateTime" Nullable="false" />
-          <Property Name="username" Type="String" Nullable="false" />
-          <Property Name="password" Type="String" Nullable="false" />
-          <Property Name="salt" Type="String" Nullable="false" />
-          <Property Name="address1" Type="String" Nullable="false" />
-          <Property Name="address2" Type="String" Nullable="false" />
-          <Property Name="email" Type="String" Nullable="false" />
-          <Property Name="external_id" Type="String" Nullable="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="username" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="salt" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+          <Property Name="address1" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+          <Property Name="address2" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+          <Property Name="email" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+          <Property Name="external_id" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
           <NavigationProperty Name="Notifications" Relationship="Models.UserNotification" FromRole="User" ToRole="Notification" />
           <NavigationProperty Name="Ratings" Relationship="Models.UserRating" FromRole="User" ToRole="Rating" />
           <NavigationProperty Name="Bookings" Relationship="Models.UserBooking" FromRole="User" ToRole="Booking" />
+          <Property Name="average_rating" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Bookings1" Relationship="Models.FK_dbo_Bookings_dbo_AppUsers_User_id1" FromRole="AppUser" ToRole="Booking" />
+          <NavigationProperty Name="Notifications1" Relationship="Models.FK_dbo_Notifications_dbo_AppUsers_User_id1" FromRole="AppUser" ToRole="Notification" />
+          <NavigationProperty Name="Ratings1" Relationship="Models.FK_dbo_Ratings_dbo_AppUsers_AppUser_id" FromRole="AppUser" ToRole="Rating" />
         </EntityType>
         <EntityType Name="File">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="file_name" Type="String" Nullable="false" />
-          <Property Name="file_location" Type="String" Nullable="false" />
+          <Property Name="file_name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="file_location" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Locations" Relationship="Models.FK_dbo_Locations_dbo_Files_file_id1" FromRole="File" ToRole="Location" />
         </EntityType>
         <EntityType Name="Notification">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="message" Type="String" Nullable="false" />
-          <Property Name="notification_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="notification_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="Models.UserNotification" FromRole="Notification" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="User_id1" Type="Int32" />
+          <NavigationProperty Name="AppUser" Relationship="Models.FK_dbo_Notifications_dbo_AppUsers_User_id1" FromRole="Notification" ToRole="AppUser" />
         </EntityType>
         <Association Name="UserNotification">
           <End Type="Models.AppUser" Role="User" Multiplicity="1" />
@@ -260,10 +473,13 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="score" Type="Int32" Nullable="false" />
-          <Property Name="comment" Type="String" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="service_provider_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Models.UserRating" FromRole="Rating" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
+          <Property Name="User_id1" Type="Int32" />
+          <Property Name="AppUser_id" Type="Int32" />
+          <NavigationProperty Name="AppUser" Relationship="Models.FK_dbo_Ratings_dbo_AppUsers_AppUser_id" FromRole="Rating" ToRole="AppUser" />
         </EntityType>
         <Association Name="UserRating">
           <End Type="Models.AppUser" Role="User" Multiplicity="1" />
@@ -282,12 +498,16 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="start_datetime" Type="DateTime" Nullable="false" />
-          <Property Name="end_datetime" Type="DateTime" Nullable="false" />
+          <Property Name="start_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_datetime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="User" Relationship="Models.UserBooking" FromRole="Booking" ToRole="User" />
           <Property Name="User_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookable" Relationship="Models.BookingBookable" FromRole="Booking" ToRole="Bookable" />
           <Property Name="Bookable_id" Type="Int32" Nullable="false" />
+          <Property Name="Bookable_id1" Type="Int32" />
+          <Property Name="User_id1" Type="Int32" />
+          <NavigationProperty Name="AppUser" Relationship="Models.FK_dbo_Bookings_dbo_AppUsers_User_id1" FromRole="Booking" ToRole="AppUser" />
+          <NavigationProperty Name="Bookable1" Relationship="Models.FK_dbo_Bookings_dbo_Bookables_Bookable_id1" FromRole="Booking" ToRole="Bookable" />
         </EntityType>
         <Association Name="UserBooking">
           <End Type="Models.AppUser" Role="User" Multiplicity="1" />
@@ -306,16 +526,20 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="name" Nullable="false" Type="String" />
-          <Property Name="description" Nullable="false" Type="String" />
-          <Property Name="available_day" Nullable="false" Type="String" />
-          <Property Name="available_start_time" Nullable="false" Type="String" />
-          <Property Name="available_end_time" Nullable="false" Type="String" />
+          <Property Name="name" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="description" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="available_day" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="available_start_time" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="available_end_time" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="max_occupancy" Nullable="false" Type="String" />
-          <Property Name="booking_type" Nullable="false" Type="String" />
+          <Property Name="booking_type" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Bookings" Relationship="Models.BookingBookable" FromRole="Bookable" ToRole="Booking" />
           <NavigationProperty Name="Location" Relationship="Models.BookableLocation" FromRole="Bookable" ToRole="Location" />
           <Property Name="Location_id" Type="Int32" Nullable="false" />
+          <Property Name="Location_id1" Type="Int32" />
+          <Property Name="service_provider_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location1" Relationship="Models.FK_dbo_Bookables_dbo_Locations_Location_id1" FromRole="Bookable" ToRole="Location" />
+          <NavigationProperty Name="Bookings1" Relationship="Models.FK_dbo_Bookings_dbo_Bookables_Bookable_id1" FromRole="Bookable" ToRole="Booking" />
         </EntityType>
         <Association Name="BookingBookable">
           <End Type="Models.Booking" Multiplicity="*" Role="Booking" />
@@ -334,10 +558,14 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="address1" Type="String" Nullable="false" />
-          <Property Name="address2" Type="String" Nullable="false" />
-          <Property Name="room" Type="String" Nullable="false" />
+          <Property Name="address1" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="address2" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="room" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Bookables" Relationship="Models.BookableLocation" FromRole="Location" ToRole="Bookable" />
+          <Property Name="file_id" Type="Int32" Nullable="false" />
+          <Property Name="file_id1" Type="Int32" />
+          <NavigationProperty Name="Bookables1" Relationship="Models.FK_dbo_Bookables_dbo_Locations_Location_id1" FromRole="Location" ToRole="Bookable" />
+          <NavigationProperty Name="File" Relationship="Models.FK_dbo_Locations_dbo_Files_file_id1" FromRole="Location" ToRole="File" />
         </EntityType>
         <Association Name="BookableLocation">
           <End Type="Models.Bookable" Role="Bookable" Multiplicity="*" />
@@ -351,6 +579,169 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Models.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Models.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <Association Name="FK_dbo_Bookings_dbo_AppUsers_User_id1">
+          <End Type="Models.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="Models.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="User_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Notifications_dbo_AppUsers_User_id1">
+          <End Type="Models.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="Models.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="User_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Ratings_dbo_AppUsers_AppUser_id">
+          <End Type="Models.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="Models.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="AppUser_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookables_dbo_Locations_Location_id1">
+          <End Type="Models.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="Models.Bookable" Role="Bookable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bookable">
+              <PropertyRef Name="Location_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Bookings_dbo_Bookables_Bookable_id1">
+          <End Type="Models.Bookable" Role="Bookable" Multiplicity="0..1" />
+          <End Type="Models.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookable">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="Bookable_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Locations_dbo_Files_file_id1">
+          <End Type="Models.File" Role="File" Multiplicity="0..1" />
+          <End Type="Models.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="file_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="Models.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -360,7 +751,8 @@
     <EntitySetMapping Name="AppUsers">
       <EntityTypeMapping TypeName="IsTypeOf(Models.AppUser)">
         <MappingFragment StoreEntitySet="AppUsers">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="average_rating" ColumnName="average_rating" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="role_id" ColumnName="role_id" />
           <ScalarProperty Name="first_name" ColumnName="first_name" />
           <ScalarProperty Name="last_name" ColumnName="last_name" />
@@ -387,7 +779,8 @@
     <EntitySetMapping Name="Notifications">
       <EntityTypeMapping TypeName="IsTypeOf(Models.Notification)">
         <MappingFragment StoreEntitySet="Notifications">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="User_id1" ColumnName="User_id1" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="message" ColumnName="message" />
           <ScalarProperty Name="notification_datetime" ColumnName="notification_datetime" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
@@ -397,7 +790,9 @@
     <EntitySetMapping Name="Ratings">
       <EntityTypeMapping TypeName="IsTypeOf(Models.Rating)">
         <MappingFragment StoreEntitySet="Ratings">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="AppUser_id" ColumnName="AppUser_id" />
+                <ScalarProperty Name="User_id1" ColumnName="User_id1" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="score" ColumnName="score" />
           <ScalarProperty Name="comment" ColumnName="comment" />
           <ScalarProperty Name="service_provider_id" ColumnName="service_provider_id" />
@@ -408,7 +803,9 @@
     <EntitySetMapping Name="Bookings">
       <EntityTypeMapping TypeName="IsTypeOf(Models.Booking)">
         <MappingFragment StoreEntitySet="Bookings">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="User_id1" ColumnName="User_id1" />
+                <ScalarProperty Name="Bookable_id1" ColumnName="Bookable_id1" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="start_datetime" ColumnName="start_datetime" />
           <ScalarProperty Name="end_datetime" ColumnName="end_datetime" />
           <ScalarProperty Name="User_id" ColumnName="User_id" />
@@ -419,7 +816,9 @@
     <EntitySetMapping Name="Bookables">
       <EntityTypeMapping TypeName="IsTypeOf(Models.Bookable)">
         <MappingFragment StoreEntitySet="Bookables">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="service_provider_id" ColumnName="service_provider_id" />
+                <ScalarProperty Name="Location_id1" ColumnName="Location_id1" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="available_day" ColumnName="available_day" />
@@ -434,13 +833,78 @@
     <EntitySetMapping Name="Locations">
       <EntityTypeMapping TypeName="IsTypeOf(Models.Location)">
         <MappingFragment StoreEntitySet="Locations">
-          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="file_id1" ColumnName="file_id1" />
+                <ScalarProperty Name="file_id" ColumnName="file_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="address1" ColumnName="address1" />
           <ScalarProperty Name="address2" ColumnName="address2" />
           <ScalarProperty Name="room" ColumnName="room" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Models.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Models.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Models.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Models.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Models.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -457,6 +921,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

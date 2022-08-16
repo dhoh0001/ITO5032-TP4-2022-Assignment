@@ -11,6 +11,8 @@ using ITO5032_Assignment.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
 
+//App user controller
+
 namespace ITO5032_Assignment.Controllers
 {
     [Authorize]

@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using ITO5032_Assignment.Models;
 using PagedList;
 
+//Bookable controller
+
 namespace ITO5032_Assignment.Controllers
 {
     [Authorize]

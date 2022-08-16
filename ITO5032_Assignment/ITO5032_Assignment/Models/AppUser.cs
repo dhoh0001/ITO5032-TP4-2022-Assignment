@@ -11,8 +11,7 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AppUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,41 +20,36 @@ namespace ITO5032_Assignment.Models
             this.Notifications = new HashSet<Notification>();
             this.Ratings = new HashSet<Rating>();
             this.Bookings = new HashSet<Booking>();
+            this.Bookings1 = new HashSet<Booking>();
+            this.Notifications1 = new HashSet<Notification>();
+            this.Ratings1 = new HashSet<Rating>();
         }
     
         public int id { get; set; }
-        [Display(Name = "Role")]
         public int role_id { get; set; }
-        [Required]
-        [Display(Name = "First Name")]
         public string first_name { get; set; }
-        [Required]
-        [Display(Name = "Last Name")]
         public string last_name { get; set; }
-        [Display(Name = "Date of Birth")]
         public System.DateTime date_of_birth { get; set; }
-        [Display(Name = "Username")]
         public string username { get; set; }
-        [Required]
-        [Display(Name = "Password")]
-        [DataType(DataType.Password)]
         public string password { get; set; }
         public string salt { get; set; }
-        [Display(Name = "Address")]
         public string address1 { get; set; }
-        [Display(Name = "")]
         public string address2 { get; set; }
-        [Display(Name = "Email")]
-        [EmailAddress]
         public string email { get; set; }
         public string external_id { get; set; }
         public float average_rating { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notifications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings1 { get; set; }
     }
 }

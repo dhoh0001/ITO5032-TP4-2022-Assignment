@@ -11,45 +11,33 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Bookable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Bookable()
         {
             this.Bookings = new HashSet<Booking>();
+            this.Bookings1 = new HashSet<Booking>();
         }
-
-        [Required]
+    
         public int id { get; set; }
-        [Required]
-        [Display(Name = "Name")]
         public string name { get; set; }
-        [Required]
-        [Display(Name = "Description")]
         public string description { get; set; }
-        [Required]
-        [Display(Name = "Available Days")]
         public string available_day { get; set; }
-        [Required]
-        [Display(Name = "Available Start Time")]
         public string available_start_time { get; set; }
-        [Required]
-        [Display(Name = "Available End Time")]
         public string available_end_time { get; set; }
-        [Required]
-        [Display(Name = "Max Occupancy")]
-        public int max_occupancy { get; set; }
-        [Required]
+        public string max_occupancy { get; set; }
         public string booking_type { get; set; }
-        [Required]
-        [Display(Name = "Location")]
         public int Location_id { get; set; }
+        public Nullable<int> Location_id1 { get; set; }
         public int service_provider_id { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual Location Location { get; set; }
+        public virtual Location Location1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings1 { get; set; }
     }
 }

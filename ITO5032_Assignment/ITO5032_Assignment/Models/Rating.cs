@@ -11,26 +11,18 @@ namespace ITO5032_Assignment.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Rating
     {
-        [Required]
         public int id { get; set; }
-        [Required]
-        [Display(Name = "Score")]
         public int score { get; set; }
-        [Required]
-        [Display(Name = "Comment")]
         public string comment { get; set; }
-        [Required]
-        [Display(Name = "Service Provider")]
         public int service_provider_id { get; set; }
-        [Required]
-        [Display(Name = "User")]
         public int User_id { get; set; }
-
-        public virtual AppUser Service_Provider { get; set; }
+        public Nullable<int> User_id1 { get; set; }
+        public Nullable<int> AppUser_id { get; set; }
+    
         public virtual AppUser User { get; set; }
+        public virtual AppUser AppUser { get; set; }
     }
 }

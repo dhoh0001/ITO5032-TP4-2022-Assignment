@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e30fdfe19ecd4584aebf4856bbf71f49" Name="Diagram1" >
+      <Diagram DiagramId="e30fdfe19ecd4584aebf4856bbf71f49" Name="Diagram1" ZoomLevel="86" >
         <EntityTypeShape EntityType="Models.AppUser" Width="1.5" PointX="7.125" PointY="3.125" />
         <EntityTypeShape EntityType="Models.File" Width="1.5" PointX="1.5" PointY="3.125" />
         <EntityTypeShape EntityType="Models.Notification" Width="1.5" PointX="4.375" PointY="3.125" />
@@ -17,6 +17,20 @@
         <AssociationConnector Association="Models.BookingBookable" />
         <EntityTypeShape EntityType="Models.Location" Width="1.5" PointX="11.75" PointY="7.375" />
         <AssociationConnector Association="Models.BookableLocation" />
+        <EntityTypeShape EntityType="Models.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="Models.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="Models.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="Models.AspNetUser" Width="1.5" PointX="3" PointY="10.375" />
+        <AssociationConnector Association="Models.FK_dbo_Bookings_dbo_AppUsers_User_id1" />
+        <AssociationConnector Association="Models.FK_dbo_Notifications_dbo_AppUsers_User_id1" />
+        <AssociationConnector Association="Models.FK_dbo_Ratings_dbo_AppUsers_AppUser_id" />
+        <AssociationConnector Association="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Models.FK_dbo_Bookables_dbo_Locations_Location_id1" />
+        <AssociationConnector Association="Models.FK_dbo_Bookings_dbo_Bookables_Bookable_id1" />
+        <AssociationConnector Association="Models.FK_dbo_Locations_dbo_Files_file_id1" />
+        <AssociationConnector Association="Models.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
